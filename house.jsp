@@ -3,7 +3,7 @@
 <!Doctype html>
 <%
     String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    String basePath = "http://104.131.131.72";
     int currentPage = (Integer) request.getAttribute("page"),
         total = (Integer) request.getAttribute("total"),
         amount = (Integer) request.getAttribute("amount");
