@@ -1,0 +1,2 @@
+# waimai
+just for friends
