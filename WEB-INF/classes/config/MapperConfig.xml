@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+
+    <mappers>
+        <!--应用-->
+        <mapper resource="model/sqlMapper/UserMapper.xml"/>
+        <mapper resource="model/sqlMapper/PlaceMapper.xml"/>
+        <mapper resource="model/sqlMapper/FoodMapper.xml"/>
+        <mapper resource="model/sqlMapper/OrderMapper.xml"/>
+        <mapper resource="model/sqlMapper/OrderListMapper.xml"/>
+        <mapper resource="model/sqlMapper/AddressMapper.xml"/>
+        <mapper resource="model/sqlMapper/TagMapper.xml"/>
+        <mapper resource="model/sqlMapper/PlaceTagMappingMapper.xml"/>
+        <mapper resource="model/sqlMapper/PicPlaceMappingMapper.xml"/>
+        <mapper resource="model/sqlMapper/CouponMapper.xml"/>
+        <mapper resource="model/sqlMapper/NewsMapper.xml"/>
+        <mapper resource="model/sqlMapper/CommentMapper.xml"/>
+        <mapper resource="model/sqlMapper/ProvideCouponMapper.xml"/>
+        <mapper resource="model/sqlMapper/SettingMapper.xml"/>
+        <mapper resource="model/sqlMapper/SuggestionMapper.xml"/>
+        <mapper resource="model/sqlMapper/AppVersionMapper.xml"/>
+        <mapper resource="model/sqlMapper/PlaceUserMapper.xml"/>
+        <mapper resource="model/sqlMapper/FoodRecommendMapper.xml"/>
+    </mappers>
+</configuration>

@@ -1,0 +1,389 @@
+<div>
+    <!-- 搜索框 -->
+    <!--<form id="place2SearchForm" onkeydown="if(event.keyCode==13){submitSearchPlace2();return false; }">-->
+        <!--<table style="height: 100%;">-->
+            <!--<tbody>-->
+            <!--<tr>-->
+                <!--<td>信息类型</td>-->
+                <!--<td colspan="3">-->
+                	<!--<input class="easyui-combotree" id="type" name="kind" data-options="url:'/admin/view/panel/place2/tag.json'">-->
+                	<!--（可选择任意一个类型）-->
+                	<!--<script type="text/javascript">-->
+                		<!--$("#type").combotree({-->
+                			<!--onSelect:function(){-->
+
+                			<!--}-->
+                		<!--});-->
+                	<!--</script>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>名称：</td>-->
+                <!--<td><input type="text" id="title" name="title"></td>-->
+                <!--<td rowspan="4">-->
+                    <!--<a href="#" onclick="submitSearchPlace2();" class="easyui-linkbutton">查询</a>-->
+                    <!--<a href="#" onclick="clearPlace2SearchForm();" class="easyui-linkbutton">清空</a>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--&lt;!&ndash;<tr>&ndash;&gt;-->
+                <!--&lt;!&ndash;<td>创建时间</td>&ndash;&gt;-->
+                <!--&lt;!&ndash;<td><input id="place2Time1" name="time2" type="text" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"></td>&ndash;&gt;-->
+                <!--&lt;!&ndash;<td align="center">至</td>&ndash;&gt;-->
+                <!--&lt;!&ndash;<td><input id="place2Time2" name="time2" type="text" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"></td>&ndash;&gt;-->
+            <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+            <!--</tbody></table>-->
+    <!--</form>-->
+
+    <!-- 数据表（使用js初始化） -->
+    <table id="place2List"></table>
+</div>
+
+
+<script type="text/javascript">
+
+$("#place2List").datagrid({
+    url:"/admin/place/list2",
+    iconCls:'icon-edit', //图标
+    nowrap:true,
+    striped:true,
+    border:true,
+    collapsible:false, //是否可折叠的
+    fit:false, //自动大小
+    idField:'pid',
+    fitColumns:true,
+    singleSelect:false, //是否单选
+    pagination:true, //分页控件
+    rownumbers:true, //行号
+    showFooter:true,
+    pageSize:20,
+    pageList:[5,10,15,20,25,30],
+    //remoteSort: false,//本地排序只能排序本页的内容
+    columns:[
+        [
+            {
+                field:'pid', //这些field根据的是类的属性名而不是数据库的字段名
+                title:'编号',
+                width:50,
+                align:'center',
+                sortable:true
+            },
+            {
+                field:'name',
+                title:'店名',
+                align:'left',
+                width:200,
+                sortable:true
+            },
+//            {
+//                field:'count',
+//                title:'团购被点击',
+//                align:'center',
+//                width:80,
+//                sortable:true
+//            },
+//            {
+//                field:'updatetime',
+//                title:'修改时间',
+//                align:'center',
+//                width:130,
+//                sortable:true
+//            },
+            {
+                field: 'bannerStr',
+                title: '是否为热门商店',
+                align: 'center',
+                width: 120,
+                sortable: true,
+                styler: function (value, row, index) {
+                    if (value == "是") {
+                        return 'background-color:#FF9200;color:white;';
+                    } else {
+                        return "";
+                    }
+                }
+            },
+            {
+                field: 'cooperateStr',
+                title: '合作状态',
+                align: 'center',
+                width: 120,
+                sortable: true,
+                styler: function (value, row, index) {
+                    if (value == "不合作") {
+                        return 'background-color:#C0C0C0;color:black;';
+                    } else if (value == "合作中") {
+                        return 'background-color:#0099FF;color:white;';
+                    }
+                }
+            },
+            {
+                field:'operate',
+                title:'操作',
+                align:'center',
+                width:240,
+                formatter:function (value, row, index) {
+                    return '<img src="images/picture.png" title="图片" style="cursor: pointer;width: 18px;height: 18px"  onclick="editImg('+index+')">&nbsp;&nbsp;&nbsp;&nbsp;'
+                            + '<img src="images/manager.png" title="商家账号管理" style="cursor: pointer; width: 18px"  onclick="placeUserManage(' + row.pid + ')">&nbsp;&nbsp;&nbsp;&nbsp;'
+                            + '<img src="images/ticket.png" title="优惠券管理" style="cursor: pointer; width: 18px"  onclick="tickedManage(' + row.pid + ')">&nbsp;&nbsp;&nbsp;&nbsp;'
+                            +'<img src="images/hot.gif" title="设置为热门" style="cursor: pointer;"  onclick="setHot('+row.pid+')">&nbsp;&nbsp;&nbsp;&nbsp;'
+                            +'<img src="images/edit.gif" title="编辑" style="cursor: pointer;"  onclick="editOnePlace2('+index+')">&nbsp;&nbsp;&nbsp;&nbsp;'
+                            + '<img src="images/cooperate.gif" title="合作关系设置" style="cursor: pointer;width: 18px;height: 18px" onclick="cooperate(\'' + row.pid + '\',\'place2List\')">&nbsp;&nbsp;&nbsp;&nbsp;'
+                            + '<img src="images/dele.gif" title="删除" style="cursor: pointer;" onclick="deleteOne(\''+row.pid+'\')">';
+                }
+            }
+        ]
+    ],
+    frozenColumns:[
+        [
+            {
+                field:'ck',
+                checkbox:true
+            }
+        ]
+    ],
+    toolbar:[
+        {
+            text:"添加信息",
+            iconCls:"icon-add",
+            handler:function () {
+                $("#addPlace2Window").window("open");
+            }
+        },
+        "-",
+        {
+            text:"编辑",
+            iconCls:"icon-edit",
+            handler:function () {
+				editPlace2();
+            }
+        },
+        "-",
+        {
+            text:"删除所选",
+            iconCls:"icon-remove",
+            handler:function () {
+            	var rows = $("#place2List").datagrid("getSelections");
+            	if(rows.length==0) {
+            		showNoSelectLine();
+            		return ;
+            	}
+            	var idStr = getIdArrayFromRows(rows);
+            	$.messager.confirm('注意','危险操作，确定删除所选信息？',function(r){   
+            	    if (r){
+            	    	deleteAll(idStr); 
+            	    }
+            	});
+            }
+        },
+        "-",
+        {
+            text:"取消所选",
+            iconCls:"icon-remove",
+            handler:function () {
+                $("#place2List").datagrid("unselectAll");
+            }
+        }
+            ,
+        "-",
+        {
+            text:"谨慎删除店铺，删除后数据就无法恢复了",
+            iconCls:"icon-help",
+            handler:function () {
+            }
+        }
+    ],
+    onDblClickRow:function (index, rowData) {
+        //双击的时候先取消所有的选择
+        $("#place2List").datagrid("unselectAll");
+        //然后选择双击的那一行
+        $("#place2List").datagrid("selectRow", index);
+    },
+    onRowContextMenu:function (e, rowIndex, rowData) {
+        e.preventDefault();
+        var grid = $("#place2List");
+        grid.datagrid("unselectAll");
+        grid.datagrid("selectRow", rowIndex);
+    },
+    onClickCell:function (rowIndex, field, value) {
+    }
+});
+
+var p = $("#place2List").datagrid('getPager');
+p.pagination({
+    beforePageText:'第', //页数文本框前显示的汉字
+    afterPageText:'页    共 {pages} 页',
+    displayMsg:'当前显示 {from} - {to} 条记录   共 {total} 条记录'
+});
+
+//新闻搜索的提交
+//function submitSearchPlace2 () {
+//    $("#place2List").datagrid("load", {
+//        title:$("#title").val(),
+//        time1:$("#place2Time1").val(),
+//        time2:$("#place2Time2").val(),
+//        hasCover:$("#hasCover").val(),
+//        type_id:$("input[name='type_id']").val()
+//    });
+//}
+
+/**
+ * 根据数据表格的行数组获取他们的id列
+ */
+function getIdArrayFromRows(rows) {
+	return getManyRowPId(rows);
+}
+
+/**
+ * 点击一行上面的删除按钮
+ */
+function deleteOne(id){
+	if(confirm("危险操作，确定要删除这一条数据吗？")) {
+		deleteAll(id);
+	}
+}
+
+/**
+ * 传入要删除的所有id，以逗号间隔，传入并删除
+ */
+function deleteAll(idStr) {
+	$.ajax({
+		url:"/admin/place/delete2",
+		type:"get",
+		data:{"idStr":idStr},
+		success:function(data) {
+			if(data>0) {
+				$.messager.alert("提示","成功删除了 " + data + " 个数据！");
+				//只有成功才更新列表
+				$("#place2List").datagrid("reload");
+			} else {
+				$.messager.alert("提示","没有删除一个数据！");
+			}
+		}
+	});
+}
+
+/**
+ * 获取数据列表中已经选择的行，进行编辑
+ */
+function editPlace2() {
+    var rows = $("#place2List").datagrid("getSelections");
+    if(rows.length ==1) {
+        $.ajax({
+            url:"/admin/place/seePlace2?pid="+rows[0].pid,
+            type:"get",
+            success:function (data) {
+                $("#addPlace2Form").form("load", data.place);
+                $("#typePlace2").combotree("setValue", data.tag);
+                $("#addPlace2Window").window("open");
+
+                //将内容设置到编辑框内（因为easyui不能帮我们设置，只有手动设置了）
+                editorPlace2.html(data.place.description);
+            }
+        });
+    } else if(rows.length > 1) {
+        $.messager.alert("提示","您只能选择一行进行编辑！");
+    } else {
+        $.messager.alert("提示","您没有选择任何信息进行编辑！");
+    }
+}
+
+/**
+ * 获取数据列表中已经选择的行，进行编辑
+ */
+function addFood() {
+    var rows = $("#place2List").datagrid("getSelections");
+    if(rows.length ==1) {
+        $.ajax({
+            url:"/admin/place/seePlace2?pid="+rows[0].pid,
+            type:"get",
+            success:function (data) {
+                $("#addPlace2Form").form("load", data);
+                var placeName = data.name;
+                $("#placeName").val(placeName);
+                $("#placeId").val(data.pid);
+                $("#addFoodWindow").window("open");
+            }
+        });
+    } else if(rows.length > 1) {
+        $.messager.alert("提示","您只能选择一行进行编辑！");
+    } else {
+        $.messager.alert("提示","您没有选择任何信息进行编辑！");
+    }
+}
+/**
+ * 点击每一行右侧的编辑按钮
+ */
+function editOnePlace2(index) {
+	$("#place2List").datagrid("unselectAll");
+	$("#place2List").datagrid("selectRow", index);
+	editPlace2();
+}
+
+function editImg(index) {
+    $("#place2List").datagrid("unselectAll");
+    $("#place2List").datagrid("selectRow", index);
+    var rows = $("#place2List").datagrid("getSelections");
+    if(rows.length ==1) {
+        $("#place2ImgUrlPid").val(rows[0].pid);
+        showPlace2Pic(rows[0].pid);
+    } else if(rows.length > 1) {
+        $.messager.alert("提示","您只能选择一行进行编辑！");
+    } else {
+        $.messager.alert("提示","您没有选择任何信息进行编辑！");
+    }
+}
+function showPlace2Pic(pid) {
+    $.ajax({
+        url:"/admin/place/getPlace2Img",
+        type:"get",
+        data:{"pid":pid},
+        success:function(data) {
+            var html = "<tr><th>图片</th></tr>";
+            for(var i=0; i<data.length; i++) {
+                html = html + "<tr><td><img src=\""+data[i].url+"\" title=\"删除图片\" onclick=\"deletePlace2Img("+data[i].picid+")\"></td></tr>";
+            }
+            $("#place2ImgTable").html(html);
+            $("#imgPlace2Window").window("open");
+        }
+    });
+}
+
+function setHot(pid) {
+    $.ajax({
+        url:"/admin/place/setHot",
+        type:"get",
+        data:{"pid":pid},
+        success:function(data) {
+            if(data=="1") {
+                showMyMsgDialog(1500, "设置热门成功！");
+                $("#place2List").datagrid("reload");
+            } else {
+                showMyMsgDialog(1500, "设置热门失败！");
+            }
+        }
+    });
+}
+
+function placeUserManage(pid) {
+    $.ajax({
+        url:"/admin/placeUser/get",
+        type:"get",
+        data:{"pid":pid},
+        success:function(data) {
+            if(data!=null && data!="" && typeof(data)!="undefined") {
+                $("#placeUserManageForm").form("load", data);
+                $("#placeUserTip").html("提示：该店铺有账号，请在下面进行修改");
+            } else {
+                $("#placeUserManageForm").form("clear");
+                $("#placeUserTip").html("提示：该店铺没有账号，请在下面进行添加");
+            }
+            $("#placeUserPid").val(pid);
+            $("#placeUserManageWindow").window("open");
+        }
+    });
+}
+////清理新闻查询的条件
+//function clearPlace2SearchForm() {
+//	$("#place2SearchForm").form("clear");
+//}
+</script>

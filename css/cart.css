@@ -1,0 +1,228 @@
+@charset "utf-8";
+
+*::-moz-selection {
+    background: none repeat scroll 0 0 #27c4c4;
+    color: #fff;
+    text-shadow: none;
+}
+*::selection {
+    background: none repeat scroll 0 0 #27c4c4;
+    color: #fff;
+    text-shadow: none;
+}
+
+@-webkit-viewport{width:device-width}
+@-moz-viewport{width:device-width}
+@-ms-viewport{width:device-width}
+@-o-viewport{width:device-width}
+@viewport{width:device-width}
+
+html{ height: 100%; }
+body{
+    background: #27c4c4 url("../img/bg.png"); margin: 0px;
+    height: 100%;
+}
+a{ cursor: url(../img/hover.ico), pointer; text-decoration: none}
+#wrapper{
+    text-align: center
+}
+#wrapperInner{
+    max-width: 1000px; min-width: 680px; width: 100%;
+    display: inline-block;
+}
+#topBar{
+    position: relative;
+    text-align: right;
+    line-height: 132px;
+    margin-top: 10px;
+}
+#topBar > a{
+    background: url("../img/icon.png");
+    vertical-align: middle;
+    display: inline-block;
+    text-align: left;
+    *display:inline; /* IE7 block 元素 */
+    *zoom:1;
+}
+#itemType{
+    width: 118px;height: 132px; left: 80px;top:70px;
+    background-position: -0px -0px !important;text-indent: 20px;font: 28px/120px '宋体';color: #fff;text-indent: 30px;
+    float: left; cursor: default
+}
+#itemIndex, #itemBack{
+    width: 92px;height: 70px; font: bold 16px/70px '微软雅黑';color: #333;text-indent: 15px;
+    background-position: -7px -149px !important;  margin-left: 10px; text-indent: 20px
+}
+#content{
+    text-align: center; padding: 30px; overflow: hidden; border: 5px solid #333; border-radius: 20px; background: #fff; margin-top: 20px; margin-bottom: 40px;
+}
+#orderList{
+    display: inline-block; padding: 0; margin: 0px; width: 100%;
+}
+#orderList > table{
+    width: 100%; font: 28px/36px 'Georgia', '宋体'; color: #333;
+}
+#orderList > table th, #orderList > table td{
+    text-align: left;
+}
+#orderList > table td{
+    font-size: 24px; color: #444; padding: 0px;
+}
+#orderList > table td > div {
+    position: relative;
+}
+.delete{
+    display: none; width: 51px; height: 25px; background: url(../img/delete.png); position: absolute; right: 100px; top:5px;
+}
+.delete:active{
+    background-position: -0px -25px;
+}
+.amount{
+    display: inline-block; *display: inline; *zoom: 1; font: 0px/0px '宋体'
+}
+.amount > *{
+    display: inline-block; vertical-align: middle;
+}
+.amount > input{
+    background: url(../img/a.png) -406px -41px; width: 52px; height: 27px; border: 1px solid #ddd; font: 16px/27px '宋体'; color: #444; padding-left: 5px; margin-right: 3px;
+}
+.amount > span > span{
+    width: 15px; height: 12px; display: block; background: url(../img/b.png) -63px -64px; border: 1px solid #ddd; cursor: pointer
+}
+.amount > span > span:first-child{
+    margin-bottom: 3px; background-position: -33px -17px;
+}
+
+#orderList > ul, #orderList > ul > li{
+    margin: 0px; padding: 0px; width: 100%; list-style: none;text-align: left;font: 24px/48px 'Georgia', '宋体'; color: #333;
+}
+#orderList > ul, #orderList > ul > li > *{
+    vertical-align: middle; display: inline-block;
+}
+#orderList > ul{
+    margin-top: 20px; border-top: 3px solid #666; padding-top: 10px;position: relative;
+}
+.totalPrize{ color: #dd4b40
+}
+.orderInput{
+    border: 2px solid #666; width: 40%; height: 25px; font: 14px/25px 'Georgia', '宋体'; padding: 0px 5px;
+}
+.inputTabEmu{
+    display: inline-block; width: 120px;
+}
+.orderInput > *{
+    padding: 0px; border: 0; width: 100%; outline: none;
+}
+.orderInput > input{
+    display: none;
+}
+
+#submit{
+    width: 98px;height: 80px;border: 0px; padding: 0px; background: url("../img/itemBg2.png") -98px -0px;
+    cursor: url(../img/hover.ico), pointer; text-align: center; font: 28px/50px '宋体';color: #fff; text-indent: 5px;
+    position: absolute;top:60px; right: 20px;
+}
+.orderTip{
+    color: #dd4b40; font-size: 18px;
+}
+.orderTip2{
+    color: #333; font-size: 14px; line-height: 18px; margin-top: 20px;
+    display: block; border: 2px dashed #333; border-radius: 5px; padding: 10px; background: #fef5f8;
+}
+
+
+
+#test{
+    -webkit-transition: background .2s, border-color .5s, box-shadow .5s;
+    -moz-transition: background .2s, border-color .5s, box-shadow .5s;
+    -ms-transition: background .2s, border-color .5s, box-shadow .5s;
+    -o-transition: background .2s, border-color .5s, box-shadow .5s;
+    transition: background .2s, border-color .5s, box-shadow .5s;
+}
+#test{
+    background: #fffee2; color: #333; border-style: solid; border-color: #ffa946; box-shadow: inset 0px 2px 2px rgba(0,0,0,0.1), 0px 0px 8px #ffa946
+}
+
+
+@media screen and (max-width: 800px) {
+    #test{
+
+    }
+}
+
+.animationUpDown {
+    -webkit-animation:animate .7s 0s infinite;
+    animation:animate .7s 0s infinite;
+}
+.animationClear {
+    -webkit-animation:animate2 .2s 0s 1;
+    animation:animate2 .2s 0s 1;
+}
+@keyframes animate{                           /*webkit - keyframe*/
+	0% {
+	    opacity:0.6;
+		transform:translate(0px, -10px);
+		animation-timing-function: ease-in;
+	    }
+	50% {
+	    opacity:1;
+        transform:translate(0px, 0px);
+	    animation-timing-function: ease-out;
+	}
+    100% {
+        opacity:0.6;
+	    transform:translate(0px, -10px);
+    }
+}
+@-webkit-keyframes animate{                           /*webkit - keyframe*/
+	0% {
+	    opacity:0.6;
+		-webkit-transform:translate(0px, -10px);
+		-webkit-animation-timing-function: ease-in;
+	    }
+	50% {
+	    opacity:1;
+        -webkit-transform:translate(0px, 0px);
+	    -webkit-animation-timing-function: ease-out;
+	}
+    100% {
+        opacity:0.6;
+	    -webkit-transform:translate(0px, -10px);
+    }
+}
+@keyframes animate2{
+	0% {
+	    opacity:0.5;
+        transform:translate(0px, -10px);
+	    animation-timing-function: ease-out;
+	}
+    100% {
+        opacity:1;
+        transform:translate(0px, 0px);
+    }
+}
+@-webkit-keyframes animate2{
+	0% {
+		  opacity:0.5;
+          -webkit-transform:translate(0px,-10px);
+	      -webkit-animation-timing-function: ease-out;
+	    }
+    100% {
+        opacity:1;
+        -webkit-transform:translate(0px, 0px);
+    }
+}
+
+.clear{
+    clear:both;
+    height:0px;
+    line-height:0px;
+    font-size:0px;
+    visibility:hidden;
+    overflow:hidden;
+}
+
+
+
+
+

@@ -1,0 +1,99 @@
+#pronav{
+	width:800px;
+	height:30px;
+	float:left;
+}
+#main{
+	width:800px;
+	height:780px;
+	float:left;
+	border:1px solid #99FF33;
+}
+#main h3{
+	width:800px;
+	height:20px;
+	display:block;
+	margin-top:10px;
+	text-align:center;
+}
+#main img{
+	width:350px;
+	height:270px;
+	margin:30px 13px;
+}
+#picture{
+	width:400px;
+	height:330px;
+	float:left;
+}
+#side{
+	width:380px;
+	height:330px;
+	float:left;
+	margin-top:20px;
+	margin-left:20px;
+}
+#side p{
+	width:200px;
+	height:30px;
+	float:left;
+	font-size:18px;
+	padding-top:8px;
+	
+}
+#telphone{
+	width:300px;
+	height:50px;
+	float:left;
+	border:1px solid #99FF33;
+	font-size: 38px;
+	font-family: Verdana;
+	font-weight: 700;
+	color: #508E00;
+	text-align:center;
+	background:#FCFEF9;
+}
+#message{
+	width:800px;
+	height:400px;
+	float:left;
+}
+#message h3{
+	text-align:left;
+}
+#message p{
+	font-size:20px;
+	margin:10px 15px;
+	border-bottom:1px solid #999;
+}
+.content{
+	color:blue;
+}
+.messageinfo{
+	width:600px;
+	height:200px;
+	border:1px solid ##99FF33;
+	margin:15px 90px;
+}
+.tijiao{
+	width:100px;
+	height:40px;
+	font-size:15px;
+	float:right;
+	margin-right:120px;
+}
+#footer{
+	width:800px;
+	height:30px;
+	float:left;
+	margin-top:5px;
+	text-align:center;
+	color:#FFF;
+	padding-top:12px;
+	font-size:15px;
+	border-top:1px solid #C0C0C0;
+}
+#footer a{
+	color:gray;
+	padding-left:10px;
+}

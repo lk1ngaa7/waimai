@@ -1,0 +1,133 @@
+*{
+    padding:0px;
+    margin:0px;
+}
+ul,li{
+    list-style:none;
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    color:red;
+}
+body{
+    background-color: #FFFFFF;
+    font-family:"微软雅黑";
+}
+.clear{
+    clear:both;
+}
+#container{
+    width:800px;
+    height:700px;
+    padding:0px;
+    margin:0 auto;
+}
+#logo{
+    width:800px;
+    height:56px;
+}
+.text{
+    width:110px;
+    height:32px;
+    display:block;
+    margin-top:10px;
+    background:url(../img/logo.png);
+    float:left;
+}
+input{
+    outline:none;
+    border:2px solid #ccc;
+}
+#search{
+    margin-top:10px;
+    float:left;
+    margin-left:138px;
+}
+#search input{
+    float:left;
+}
+.swap_value{
+    width:290px;
+    height:32px;
+    color: #999;
+    border-right:none;
+}
+.submit{
+    width:87px;
+    height:32px;
+    float:left;
+    border-left:none;
+    background: url(../img/subm.png);
+    cursor: pointer;
+    box-sizing: content-box;
+}
+#login{
+    float:right;
+    height: 56px;
+    margin-right: 0px;
+}
+#login a{
+    vertical-align: middle;
+    line-height: 56px;
+    margin-left: 10px; color: #333;
+}
+#login a:hover{
+    color:red;
+}
+#header{
+    width:800px;
+    height:45px;
+    float:left;
+    background:#77B32D;
+    position:relative;
+}
+#header ul{
+    float:left;
+    padding:0px;
+    margin:0px;
+    font-size: 0px;
+}
+#header ul li{
+    display: inline-block;
+    *display: inline;
+    *zoom:1;
+    border-right:1px solid white;
+}
+.nav{
+    display:block;
+    width:6em;
+    height:24px;
+    font-size:23px;
+    font-family:'新宋体';
+    text-decoration:none;
+    color:white;
+    padding:10px 5px;
+    text-align: center;
+}
+#header li a:hover,#header .vi{
+    background: #8dd536;
+    color: #fff;
+}
+#judge{
+    width:200px;
+    float: left;
+    line-height: 45px;
+}
+#judge a{
+    display: inline-block; margin-left: 10px; color: #fff;
+}
+#judge a:hover{
+    color: #f00;
+}
+.loginIco{
+    display: inline-block;
+    width: 20px; height: 20px;
+    background:url(../img/bg_icons.png) no-repeat 0 1px; vertical-align: middle;
+}
+.favIco{
+    display: inline-block;
+    width: 20px; height: 20px; vertical-align: middle;
+    background:url(../img/new_navlogin.png) no-repeat 4px 3px;
+}

@@ -1,0 +1,177 @@
+@charset "utf-8";
+
+*::-moz-selection {
+    background: none repeat scroll 0 0 #27c4c4;
+    color: #fff;
+    text-shadow: none;
+}
+*::selection {
+    background: none repeat scroll 0 0 #27c4c4;
+    color: #fff;
+    text-shadow: none;
+}
+
+@-webkit-viewport{width:device-width}
+@-moz-viewport{width:device-width}
+@-ms-viewport{width:device-width}
+@-o-viewport{width:device-width}
+@viewport{width:device-width}
+
+html{ height: 100%; }
+body{
+    background: #27c4c4 url("../img/bg.png"); margin: 0px;
+    height: 100%;
+}
+a{ cursor: url(../img/hover.ico), pointer; text-decoration: none}
+#wrapper{
+    text-align: center
+}
+#wrapperInner{
+    max-width: 1000px; min-width: 500px; width: 100%;
+    display: inline-block;
+}
+#topBar{
+    position: relative;
+    text-align: right;
+    line-height: 132px;
+    margin-top: 10px;
+}
+#topBar > *{
+    background: url("../img/icon.png");
+    vertical-align: middle;
+    display: inline-block;
+    text-align: left;
+    *display:inline; /* IE7 block 元素 */
+    *zoom:1;
+}
+#itemType{
+    width: 118px;height: 132px; left: 80px;top:70px;
+    background-position: -0px -0px !important;text-indent: 20px;font: 28px/120px '宋体';color: #fff;text-indent: 30px;
+    float: left; cursor: default
+}
+#itemPrev, #itemNext, #itemIndex{
+    width: 92px;height: 70px; font: bold 16px/70px '微软雅黑';color: #333;text-indent: 15px;
+    background-position: -7px -149px !important;margin-left: 10px;
+}
+#itemIndex{
+    text-indent: 20px
+}
+
+#content{
+    margin-top: 25px; text-align: justify; display: inline-block;
+
+}
+#content > a{
+    display: inline-block;width: 300px;height: 150px; vertical-align: top; position: relative; margin-bottom: 40px;
+}
+@media screen and (max-width: 940px) {
+    #content{
+        text-align: center; max-width: 800px; letter-spacing: 3em;
+    }
+}
+
+#content > .aligenFix{
+    height:0; padding:0; overflow:hidden; margin-bottom: 0px;
+}
+
+#content > a > img{
+    width: 100%; height: 100%; border: none;
+}
+#content > a > span{
+    display: block; position: absolute;bottom: -15px; left: -15px;background: url(../img/icon.png) -6px -343px ; width: 85px; height: 88px;
+    letter-spacing: normal; overflow: hidden;
+}
+#content > a > .status2{
+    background-position: -96px -343px;
+}
+#content > a > span > span{
+    display: table; position: absolute; text-align: center;
+    width: 68px; height: 70px;
+    bottom: 5px; left: 5px;
+}
+#content > a > span > span > span{
+    font-size: 18px;
+    font-family: '微软雅黑'; color: #fff;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+/*////////////////////*/
+#content > a > span > table{
+    position: absolute; text-align: center;
+    width: 68px; height: 70px;
+    bottom: 5px; left: 5px;
+    table-layout: fixed;
+}
+#content > a > span > table td{
+    font-size: 18px;
+    font-family: '微软雅黑'; color: #fff;
+}
+
+.animationUpDown {
+    -webkit-animation:animate .7s 0s infinite;
+    animation:animate .7s 0s infinite;
+}
+.animationClear {
+    -webkit-animation:animate2 .2s 0s 1;
+    animation:animate2 .2s 0s 1;
+}
+@keyframes animate{                           /*webkit - keyframe*/
+	0% {
+	    opacity:0.6;
+		transform:translate(0px, -10px);
+		animation-timing-function: ease-in;
+	    }
+	50% {
+	    opacity:1;
+        transform:translate(0px, 0px);
+	    animation-timing-function: ease-out;
+	}
+    100% {
+        opacity:0.6;
+	    transform:translate(0px, -10px);
+    }
+}
+@-webkit-keyframes animate{                           /*webkit - keyframe*/
+	0% {
+	    opacity:0.6;
+		-webkit-transform:translate(0px, -10px);
+		-webkit-animation-timing-function: ease-in;
+	    }
+	50% {
+	    opacity:1;
+        -webkit-transform:translate(0px, 0px);
+	    -webkit-animation-timing-function: ease-out;
+	}
+    100% {
+        opacity:0.6;
+	    -webkit-transform:translate(0px, -10px);
+    }
+}
+@keyframes animate2{
+	0% {
+	    opacity:0.5;
+        transform:translate(0px, -10px);
+	    animation-timing-function: ease-out;
+	}
+    100% {
+        opacity:1;
+        transform:translate(0px, 0px);
+    }
+}
+@-webkit-keyframes animate2{
+	0% {
+		  opacity:0.5;
+          -webkit-transform:translate(0px,-10px);
+	      -webkit-animation-timing-function: ease-out;
+	    }
+    100% {
+        opacity:1;
+        -webkit-transform:translate(0px, 0px);
+    }
+}
+
+
+
+
+

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--应用-->
+    <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="mySqlSessionFactory"/>
+        <property name="mapperInterface" value="mapper.UserMapper"/>
+    </bean>
+    <bean id="placeMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="mySqlSessionFactory"/>
+        <property name="mapperInterface" value="mapper.PlaceMapper"/>
+    </bean>
+    <bean id="foodMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="mySqlSessionFactory"/>
+        <property name="mapperInterface" value="mapper.FoodMapper"/>
+    </bean>
+    <bean id="orderMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="mySqlSessionFactory"/>
+        <property name="mapperInterface" value="mapper.OrderMapper"/>
+    </bean>
+    <bean id="orderListMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="mySqlSessionFactory"/>
+        <property name="mapperInterface" value="mapper.OrderListMapper"/>
+    </bean>
+    <bean id="addressMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="mySqlSessionFactory"/>
+        <property name="mapperInterface" value="mapper.AddressMapper"/>
+    </bean>
+    <bean id="tagMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="mySqlSessionFactory"/>
+        <property name="mapperInterface" value="mapper.TagMapper"/>
+    </bean>
+    <bean id="placeTagMappingMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="mySqlSessionFactory"/>
+        <property name="mapperInterface" value="mapper.PlaceTagMappingMapper"/>
+    </bean>
+    <bean id="picPlaceMappingMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="mySqlSessionFactory"/>
+        <property name="mapperInterface" value="mapper.PicPlaceMappingMapper"/>
+    </bean>
+    <bean id="couponMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="mySqlSessionFactory"/>
+        <property name="mapperInterface" value="mapper.CouponMapper"/>
+    </bean>
+    <bean id="newsMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="mySqlSessionFactory"/>
+        <property name="mapperInterface" value="mapper.NewsMapper"/>
+    </bean>
+    <bean id="commentMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="mySqlSessionFactory"/>
+        <property name="mapperInterface" value="mapper.CommentMapper"/>
+    </bean>
+    <bean id="provideCouponMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="mySqlSessionFactory"/>
+        <property name="mapperInterface" value="mapper.ProvideCouponMapper"/>
+    </bean>
+    <bean id="settingMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="mySqlSessionFactory"/>
+        <property name="mapperInterface" value="mapper.SettingMapper"/>
+    </bean>
+    <bean id="suggestionMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="mySqlSessionFactory"/>
+        <property name="mapperInterface" value="mapper.SuggestionMapper"/>
+    </bean>
+    <bean id="appVersionMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="mySqlSessionFactory"/>
+        <property name="mapperInterface" value="mapper.AppVersionMapper"/>
+    </bean>
+    <bean id="placeUserMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="mySqlSessionFactory"/>
+        <property name="mapperInterface" value="mapper.PlaceUserMapper"/>
+    </bean>
+    <bean id="foodRecommendMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="mySqlSessionFactory"/>
+        <property name="mapperInterface" value="mapper.FoodRecommendMapper"/>
+    </bean>
+</beans>

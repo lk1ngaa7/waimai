@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.PlaceMapper" >
+  <resultMap id="BaseResultMap" type="model.Place" >
+    <id column="pId" property="pid" jdbcType="INTEGER" />
+    <result column="coordinate" property="coordinate" jdbcType="VARCHAR" />
+    <result column="uId" property="uid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="onBusiness" property="onbusiness" jdbcType="INTEGER" />
+    <result column="cooperate" property="cooperate" jdbcType="INTEGER" />
+    <result column="icoUrl" property="icourl" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updatetime" jdbcType="VARCHAR" />
+    <result column="groupBuying" property="groupbuying" jdbcType="VARCHAR" />
+    <result column="banner" property="banner" jdbcType="INTEGER" />
+    <result column="food_type" property="foodType" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pId, coordinate, uId, name, address, phone, description, type, onBusiness, cooperate, 
+    icoUrl, updateTime, groupBuying, banner, food_type
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.PlaceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from place
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from place
+    where pId = #{pid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from place
+    where pId = #{pid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="model.PlaceExample" >
+    delete from place
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="model.Place" >
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="pid">
+          SELECT LAST_INSERT_ID()
+      </selectKey>
+    insert into place (pId, coordinate, uId, 
+      name, address, phone, 
+      description, type, onBusiness, 
+      cooperate, icoUrl, updateTime, 
+      groupBuying, banner, food_type
+      )
+    values (#{pid,jdbcType=INTEGER}, #{coordinate,jdbcType=VARCHAR}, #{uid,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{onbusiness,jdbcType=INTEGER}, 
+      #{cooperate,jdbcType=INTEGER}, #{icourl,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{groupbuying,jdbcType=VARCHAR}, #{banner,jdbcType=INTEGER}, #{foodType,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="model.Place" >
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="pid">
+          SELECT LAST_INSERT_ID()
+      </selectKey>
+    insert into place
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        pId,
+      </if>
+      <if test="coordinate != null" >
+        coordinate,
+      </if>
+      <if test="uid != null" >
+        uId,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="onbusiness != null" >
+        onBusiness,
+      </if>
+      <if test="cooperate != null" >
+        cooperate,
+      </if>
+      <if test="icourl != null" >
+        icoUrl,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+      <if test="groupbuying != null" >
+        groupBuying,
+      </if>
+      <if test="banner != null" >
+        banner,
+      </if>
+      <if test="foodType != null" >
+        food_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="coordinate != null" >
+        #{coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="onbusiness != null" >
+        #{onbusiness,jdbcType=INTEGER},
+      </if>
+      <if test="cooperate != null" >
+        #{cooperate,jdbcType=INTEGER},
+      </if>
+      <if test="icourl != null" >
+        #{icourl,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="groupbuying != null" >
+        #{groupbuying,jdbcType=VARCHAR},
+      </if>
+      <if test="banner != null" >
+        #{banner,jdbcType=INTEGER},
+      </if>
+      <if test="foodType != null" >
+        #{foodType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="model.PlaceExample" resultType="java.lang.Integer" >
+    select count(*) from place
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update place
+    <set >
+      <if test="record.pid != null" >
+        pId = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.coordinate != null" >
+        coordinate = #{record.coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uid != null" >
+        uId = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.onbusiness != null" >
+        onBusiness = #{record.onbusiness,jdbcType=INTEGER},
+      </if>
+      <if test="record.cooperate != null" >
+        cooperate = #{record.cooperate,jdbcType=INTEGER},
+      </if>
+      <if test="record.icourl != null" >
+        icoUrl = #{record.icourl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null" >
+        updateTime = #{record.updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupbuying != null" >
+        groupBuying = #{record.groupbuying,jdbcType=VARCHAR},
+      </if>
+      <if test="record.banner != null" >
+        banner = #{record.banner,jdbcType=INTEGER},
+      </if>
+      <if test="record.foodType != null" >
+        food_type = #{record.foodType,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update place
+    set pId = #{record.pid,jdbcType=INTEGER},
+      coordinate = #{record.coordinate,jdbcType=VARCHAR},
+      uId = #{record.uid,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      onBusiness = #{record.onbusiness,jdbcType=INTEGER},
+      cooperate = #{record.cooperate,jdbcType=INTEGER},
+      icoUrl = #{record.icourl,jdbcType=VARCHAR},
+      updateTime = #{record.updatetime,jdbcType=VARCHAR},
+      groupBuying = #{record.groupbuying,jdbcType=VARCHAR},
+      banner = #{record.banner,jdbcType=INTEGER},
+      food_type = #{record.foodType,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="model.Place" >
+    update place
+    <set >
+      <if test="coordinate != null" >
+        coordinate = #{coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        uId = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="onbusiness != null" >
+        onBusiness = #{onbusiness,jdbcType=INTEGER},
+      </if>
+      <if test="cooperate != null" >
+        cooperate = #{cooperate,jdbcType=INTEGER},
+      </if>
+      <if test="icourl != null" >
+        icoUrl = #{icourl,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="groupbuying != null" >
+        groupBuying = #{groupbuying,jdbcType=VARCHAR},
+      </if>
+      <if test="banner != null" >
+        banner = #{banner,jdbcType=INTEGER},
+      </if>
+      <if test="foodType != null" >
+        food_type = #{foodType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pId = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="model.Place" >
+    update place
+    set coordinate = #{coordinate,jdbcType=VARCHAR},
+      uId = #{uid,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      onBusiness = #{onbusiness,jdbcType=INTEGER},
+      cooperate = #{cooperate,jdbcType=INTEGER},
+      icoUrl = #{icourl,jdbcType=VARCHAR},
+      updateTime = #{updatetime,jdbcType=VARCHAR},
+      groupBuying = #{groupbuying,jdbcType=VARCHAR},
+      banner = #{banner,jdbcType=INTEGER},
+      food_type = #{foodType,jdbcType=INTEGER}
+    where pId = #{pid,jdbcType=INTEGER}
+  </update>
+   <select id="getSomeByExample" parameterType="model.PlaceExample" resultMap="BaseResultMap">
+        <!--
+          分页
+        -->
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from place
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        limit #{start},#{amount}
+    </select>
+</mapper>

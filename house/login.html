@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>安居客</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="css/login.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/js/jq181.js"></script>
+<script type="text/javascript">
+    $(function(){
+        /*验证*/
+        var regUrl = "/doReg";
+
+        String.prototype.trim = function(){
+            return this.replace(/(^\s+)|(\s+$)/g,"");
+        }
+        var validate = {
+            account:{ok:false, regexp:/^\w{3,20}$/, info:"请输入账号(3～20位)", required:true},
+            password:{ok:false, regexp:/^\w{3,20}$/, info:"请输入密码(3～20)", required:true}
+        }
+        $(".name").each(function(){
+            var $obj = $(this),
+                    parent = $obj.parent(),
+                    fake = $("<input class='fake'>");
+
+            $obj.bind("focus",function(e){
+                focus(e, $obj);
+            }).bind("propertychange",function(e){
+                input(e, $obj);
+            }).bind("input",function(e){
+                input(e, $obj);
+            }).bind("paste",function(e){
+                input(e, $obj);
+            }).bind("cut",function(e){
+                input(e, $obj);
+            }).bind("blur",function(e){
+                blur(e, $obj, fake);
+            });
+
+            parent.append(fake);
+            if(validate[$obj.attr("name")].info)
+                fake.val(validate[$obj.attr("name")].info);
+            fake.bind("focus", function(){
+                $obj.show().focus();
+                fake.hide();
+            });
+        });
+
+        $("#submit").bind("click", submit);
+
+        function focus(e, $obj){
+            cursorEnd($obj);
+        }
+        function blur(e ,$obj, fake){
+            $obj.val($obj.val().trim());
+            if( !input(e, $obj)){
+                $obj.hide();
+                fake.show();
+            }
+        }
+        function input(e, $obj){
+            var val = $obj.val(),
+                    flag = true;
+            if(validate[$obj.attr("name")] && (validate[$obj.attr("name")].required || (val !== "" && !validate[$obj.attr("name")].required))){
+                if(validate[$obj.attr("name")].min) {
+                    if(validate[$obj.attr("name")].min > val.length) flag = false;
+                }
+                if(validate[$obj.attr("name")].max) {
+                    if(validate[$obj.attr("name")].max < val.length) flag = false;
+                }
+                if(validate[$obj.attr("name")].regexp) {
+                    if(!val.match(validate[$obj.attr("name")].regexp)) flag = false;
+                }
+                if(validate[$obj.attr("name")].equalTo){
+                    var eqObj = $("#" + validate[$obj.attr("name")].equalTo);
+                    if(eqObj.val() !== val || !validate[eqObj.attr("name")].ok) flag = false;
+                }
+            }
+            validate[$obj.attr("name")].ok = flag;
+            return flag;
+        }
+
+        function cursorEnd($obj){
+            if($obj[0].createTextRange){
+                var a =$obj[0].createTextRange();
+                a.moveStart('character',$obj[0].value.length);
+                a.collapse(true);
+                a.select();
+            }
+        }
+
+        function submit(){
+            var flag = true;
+            for(var i in validate){
+                if(!validate[i].ok) flag = false;
+            }
+            if(!flag){
+                return false;
+            }
+        }
+    });
+</script>
+</head>
+<body>
+	<div id="container">
+		<div id="logo">
+			<a href="#" class="text"></a>
+			<a href="register.html" id="register" target="__blank">注册</a>
+		</div>
+		<div id="bg_line">
+		</div>
+		<div id="main">
+			<div id="box">
+				<form action="" method="post">
+                    <div>
+                        <span>账号：</span>
+                        <input type="text" name="account" value="" class="name"/>
+                    </div>
+                    <div>
+                        <span>密码：</span>
+                        <input type="text" name="password" value="" class="name" id="password"/>
+                    </div>
+                    <div>
+                        <span></span>
+                        <label for="temFix"><input type="radio" name="people" value="" checked id="temFix">个人</label>
+                        <label for="radio2"><input type="radio" name="people" value="" id="radio2">企业</label>
+                        <label for="radio3"><input type="radio" name="people" value="" id="radio3">管理员</label>
+                    </div>
+					<input type="submit" id="submit" value="登录" class="config" />
+				</form>
+			</div>
+		</div>
+		<div id="footer">
+			<a href="#">关于安居客|</a><a href="#">关于我们|</a><a href="#">最新问答|</a><a href="#">相关链接</a>
+		</div>
+	</div>   
+</body>
+</html>

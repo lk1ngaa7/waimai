@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>安居客</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="css/style.css" type="text/css" rel="stylesheet">
+<link href="css/resource.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/js/jq181.js"></script>
+<script type="text/javascript">
+    $(function(){
+        /*验证*/
+        var regUrl = "/doReg";
+
+        String.prototype.trim = function(){
+            return this.replace(/(^\s+)|(\s+$)/g,"");
+        }
+        var validate = {
+            account:{ok:false, regexp:/^\w{3,20}$/, info:"请输入账号(3～20位)", required:true},
+            password:{ok:false, regexp:/^\w{3,20}$/, info:"请输入密码(3～20)", required:true},
+            repassword:{ok:false, info:"请重复密码", equalTo:"password", required:true},
+            name:{ok:false, regexp:/^\w{3,20}$/, info:"请输入昵称(3～20)", required:true},
+            email:{ok:false, regexp:/^[\w_-]+@[\w_-]+\.[\w]{2,4}(\.[\w]{2,4})?$/, max:100, info:"请输入您的常用邮箱", required:true},
+            phone:{ok:false, regexp:/^\d{11}$/, info:"请输入手机号码(11位)", required:true}
+        }
+        $(".name").each(function(){
+            var $obj = $(this),
+                    parent = $obj.parent(),
+                    fake = $("<input class='fake'>");
+
+            $obj.bind("focus",function(e){
+                focus(e, $obj);
+            }).bind("propertychange",function(e){
+                        input(e, $obj);
+                    }).bind("input",function(e){
+                        input(e, $obj);
+                    }).bind("paste",function(e){
+                        input(e, $obj);
+                    }).bind("cut",function(e){
+                        input(e, $obj);
+                    }).bind("blur",function(e){
+                        blur(e, $obj, fake);
+                    });
+
+            parent.append(fake);
+            if(validate[$obj.attr("name")].info)
+                fake.val(validate[$obj.attr("name")].info);
+            fake.bind("focus", function(){
+                $obj.show().focus();
+                fake.hide();
+            });
+        });
+
+        $("#submit").bind("click", submit);
+
+        function focus(e, $obj){
+            cursorEnd($obj);
+        }
+        function blur(e ,$obj, fake){
+            $obj.val($obj.val().trim());
+            if( !input(e, $obj)){
+                $obj.hide();
+                fake.show();
+            }
+        }
+        function input(e, $obj){
+            var val = $obj.val(),
+                    flag = true;
+            if(validate[$obj.attr("name")] && (validate[$obj.attr("name")].required || (val !== "" && !validate[$obj.attr("name")].required))){
+                if(validate[$obj.attr("name")].min) {
+                    if(validate[$obj.attr("name")].min > val.length) flag = false;
+                }
+                if(validate[$obj.attr("name")].max) {
+                    if(validate[$obj.attr("name")].max < val.length) flag = false;
+                }
+                if(validate[$obj.attr("name")].regexp) {
+                    if(!val.match(validate[$obj.attr("name")].regexp)) flag = false;
+                }
+                if(validate[$obj.attr("name")].equalTo){
+                    var eqObj = $("#" + validate[$obj.attr("name")].equalTo);
+                    if(eqObj.val() !== val || !validate[eqObj.attr("name")].ok) flag = false;
+                }
+            }
+            validate[$obj.attr("name")].ok = flag;
+            return flag;
+        }
+
+        function cursorEnd($obj){
+            if($obj[0].createTextRange){
+                var a =$obj[0].createTextRange();
+                a.moveStart('character',$obj[0].value.length);
+                a.collapse(true);
+                a.select();
+            }
+        }
+
+        function submit(){
+            var flag = true;
+            for(var i in validate){
+                if(!validate[i].ok) flag = false;
+            }
+            if(!flag){
+                return false;
+            }
+        }
+    });
+</script>
+</head>
+<body>
+    <div id="container">
+	    <div id="logo">
+			<a href="#" class="text"></a>
+			<div id="search">
+				<form id="search_form" method="post" action="#"> 
+					<input type="text"  value="输入关键字" onClick="this.value=''" class="swap_value" name="searchmain" />
+					<input type="submit" class="submit" value="" />
+				</form>
+			</div>
+			<div id="login">
+				<a href="login.html" target="__blank">登录</a>
+                <a href="register.html" target="__blank">注册</a>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div id="header">
+			<ul>
+				<li><a class="nav" href="index.html">首页</a></li>
+				<li><a class="nav" href="newhouse.html">新房</a></li>
+				<li><a class="nav" href="secondhouse.html">二手房</a></li>
+				<li><a class="nav vi" href="myself.html">个人中心</a></li>
+			</ul>
+			<div id="judge">
+				<a href="login.html" target="__blank" class="ni"><span class="loginIco"></span>用户登录</a>
+				<a href="myself.html" target="__blank" class="collect"><span class="favIco"></span>收藏夹</a>
+			</div>
+		</div>
+		<div id="main">
+			<div id="leftbody">
+				<div id="man">
+					<img src="img/man.png" /><span>nana</span>
+				</div>
+				<div id="list">
+					<ul>
+						<li><a href="myself.html">我的房源</a></li>
+						<li><a href="collect.html">我的收藏</a></li>
+						<li><a href="resource.html" class="visited">修改资料</a></li>
+					</ul>
+				</div>
+			</div>
+			<div id="rightbody">
+				<h4>&nbsp;&nbsp;修改资料</h4>
+				<div id="line"></div>
+					<div id="box">
+						<form action="" method="post">
+                            <div>
+                                <span>账号：</span>
+                                <input type="text" name="account" value="" class="name"/>
+                            </div>
+                            <div>
+                                <span>密码：</span>
+                                <input type="text" name="password" value="" class="name" id="password"/>
+                            </div>
+                            <div>
+                                <span>重复密码：</span>
+                                <input type="text" name="repassword" value="" class="name"/>
+                            </div>
+                            <div>
+                                <span>昵称：</span>
+                                <input type="text" name="name" value="" class="name"/>
+                            </div>
+                            <div>
+                                <span>邮箱：</span>
+                                <input type="text" name="email" value="" class="name"/>
+                            </div>
+                            <div>
+                                <span>电话：</span>
+                                <input type="text" name="phone" value="" class="name"/>
+                            </div>
+                            <input type="submit" value="修改" class="config" id="submit"/>
+						</form>
+					</div>
+			</div>
+		</div>
+		<div id="footer">
+			<a href="#">关于安居客|</a><a href="#">关于我们|</a><a href="#">最新问答|</a><a href="#">相关链接</a>
+		</div>
+	</div>
+</body>
+</html>

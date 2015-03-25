@@ -1,0 +1,149 @@
+@charset "utf-8";
+
+*::-moz-selection {
+    background: none repeat scroll 0 0 #27c4c4;
+    color: #fff;
+    text-shadow: none;
+}
+*::selection {
+    background: none repeat scroll 0 0 #27c4c4;
+    color: #fff;
+    text-shadow: none;
+}
+
+@-webkit-viewport{width:device-width}
+@-moz-viewport{width:device-width}
+@-ms-viewport{width:device-width}
+@-o-viewport{width:device-width}
+@viewport{width:device-width}
+
+html{ height: 100%; }
+body{
+    background: #27c4c4 url("../img/bg.png"); margin: 0px;
+    height: 100%;
+}
+a{ text-decoration: none}
+#wrapper{
+    text-align: center
+}
+#wrapperInner{
+    max-width: 1000px; min-width: 817px; width: 100%;
+    display: inline-block;
+    text-align: left
+}
+
+
+#content{
+    width: 501px; height: 668px; background: url(../img/regBg2.png); overflow: hidden;
+}
+#regF{
+    margin: 238px 0px 0px 100px; overflow: hidden;
+}
+#regF > div{
+    width: 100%; height: 51px; margin-top: 8px; color: #333;
+}
+#regF > div:first-child{
+    margin-top: 2px;
+}
+#regF > div > input{
+    width: 100%; *width: 96%; height: 50px; *height: 36px; padding: 7px; box-sizing: border-box; font: 26px/36px '宋体'; background: transparent; border: 0; display: none;
+}
+#regF > div > .fake{
+    color: #666; display: inline;
+}
+#regF > div > select{
+    width: 100%; *width: 96%; height: 50px; *height: 36px; padding: 7px; box-sizing: border-box; font: 26px/36px '宋体'; background: transparent; border: 0;
+}
+
+#option{
+    margin-top: 23px; display: block;
+}
+#option > *{
+    display: block; width: 50px; height: 50px; background: transparent; float: right; margin-right: 50px; border: 0; cursor: url(../img/hover.ico), pointer;
+}
+#option > *:first-child{
+    margin-right: 30px;
+}
+
+@media screen and (max-width: 800px) {
+    #foodMenu > ul{
+        width: 48%;
+    }
+}
+
+.animationUpDown {
+    -webkit-animation:animate .7s 0s infinite;
+    animation:animate .7s 0s infinite;
+}
+.animationClear {
+    -webkit-animation:animate2 .2s 0s 1;
+    animation:animate2 .2s 0s 1;
+}
+@keyframes animate{                           /*webkit - keyframe*/
+	0% {
+	    opacity:0.6;
+		transform:translate(0px, -10px);
+		animation-timing-function: ease-in;
+	    }
+	50% {
+	    opacity:1;
+        transform:translate(0px, 0px);
+	    animation-timing-function: ease-out;
+	}
+    100% {
+        opacity:0.6;
+	    transform:translate(0px, -10px);
+    }
+}
+@-webkit-keyframes animate{                           /*webkit - keyframe*/
+	0% {
+	    opacity:0.6;
+		-webkit-transform:translate(0px, -10px);
+		-webkit-animation-timing-function: ease-in;
+	    }
+	50% {
+	    opacity:1;
+        -webkit-transform:translate(0px, 0px);
+	    -webkit-animation-timing-function: ease-out;
+	}
+    100% {
+        opacity:0.6;
+	    -webkit-transform:translate(0px, -10px);
+    }
+}
+@keyframes animate2{
+	0% {
+	    opacity:0.5;
+        transform:translate(0px, -10px);
+	    animation-timing-function: ease-out;
+	}
+    100% {
+        opacity:1;
+        transform:translate(0px, 0px);
+    }
+}
+@-webkit-keyframes animate2{
+	0% {
+		  opacity:0.5;
+          -webkit-transform:translate(0px,-10px);
+	      -webkit-animation-timing-function: ease-out;
+	    }
+    100% {
+        opacity:1;
+        -webkit-transform:translate(0px, 0px);
+    }
+}
+
+.clear{
+    clear:both;
+    height:0px;
+    line-height:0px;
+    font-size:0px;
+    visibility:hidden;
+    overflow:hidden;
+}
+
+
+
+
+

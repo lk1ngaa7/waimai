@@ -1,0 +1,92 @@
+*{
+	padding:0px;
+	margin:0px;
+}
+body{
+	background-color: #fff;
+	font-family: '微软雅黑';
+}
+a{
+	text-decoration: none;
+}
+ul,li{
+	list-style:none;
+}
+input{
+	border:none;
+}
+.clear{
+	clear:both;
+}
+#container{
+	width:800px;
+	height:500px;
+	padding:0px;
+	margin:0 auto;
+}
+.text{
+	width:110px;
+	height:32px;
+	display:block;
+	margin-top:10px;
+	background:url(../img/logo.png);
+	float:left;
+	margin-left:10px;
+}
+#bg_line{
+	width:800px;
+	height:2px;
+	float:left;
+	border-bottom:2px solid #ccc;
+}
+#register{
+	float:right;
+	display:block;
+	margin-top:30px;
+	color:gray;
+}
+#main{
+	width:800px;
+	height:600px;
+    float: left;
+}
+#main h3{
+	width:800px;
+	float:left;
+    line-height: 80px;
+}
+
+#box > form > div{
+    margin-bottom: 10px;
+}
+#box > form > div > span{
+    width:80px; display: inline-block; vertical-align: middle;
+}
+#box input{
+    vertical-align: middle;
+    font: 14px/14px '宋体';
+    border:1px solid #ccc;
+}
+.name, .fake{
+    width:200px;
+    height: 14px;
+    display: none; padding: 5px 10px;
+}
+.fake{
+    display: inline; color: #666
+}
+.file{
+    width:220px;
+}
+#box{
+    float: left;
+}
+#submit{
+    width:205px;
+    height:35px;
+    font-size:20px;
+    color:#FFF;
+    border-radius: 4px;
+    background:#ff7300;
+}
+

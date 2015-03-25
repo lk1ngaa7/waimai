@@ -1,0 +1,42 @@
+<!Doctype html>
+<html>
+<head>
+    <style>
+          div{width: 50px;height: 50px;margin: 1px;background: #666}
+    </style>
+    <script type="text/javascript" src="js/jq181.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var tip = $("#tip"),
+                 blankCharsRegExp = /^\s+/,
+                 /*regexp = /^(\d+:\d+,)*(\d+:\d+)$/g;*/
+                 regexp = /^.{1,12}$/g;
+
+            $("#input").bind("propertychange",function(e){
+                handler(this);
+            }).bind("input",function(e){
+                handler(this);
+            }).bind("paste",function(e){
+                handler(this);
+            }).bind("cut",function(e){
+                handler(this);
+            }).bind("blur",function(e){
+                handler(this);
+            });
+
+            function handler(obj){
+                tip.val($(obj).val().match(regexp));
+            }
+            function log(data){
+                if(console)
+                    console.log(data);
+            };
+        });
+    </script>
+
+</head>
+<body style="margin: 0px;">
+<input id="input"><br>
+<input id="tip">
+</body>
+</html>

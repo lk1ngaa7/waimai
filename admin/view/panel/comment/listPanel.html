@@ -1,0 +1,176 @@
+<div>
+    <!-- 数据表（使用js初始化） -->
+    <table id="commentList"></table>
+</div>
+
+
+<script type="text/javascript">
+
+$("#commentList").datagrid({
+    url:"/admin/comment/list",
+    iconCls:'icon-edit', //图标
+    nowrap:true,
+    striped:true,
+    border:true,
+    collapsible:false, //是否可折叠的
+    fit:false, //自动大小
+    idField:'cid',
+    fitColumns:true,
+    singleSelect:false, //是否单选
+    pagination:true, //分页控件
+    rownumbers:true, //行号
+    showFooter:true,
+    pageSize:30, //每页显示的记录条数，默认为10
+    pageList:[5, 10, 15, 20, 25, 30 ], //可以设置每页记录条数的列表
+    //remoteSort: false,//本地排序只能排序本页的内容
+    columns:[
+        [
+            {
+                field:'cid', //这些field根据的是类的属性名而不是数据库的字段名
+                title:'编号',
+                width:60,
+                align:'center',
+                sortable:true
+            },
+            {
+                field:'username',
+                title:'用户',
+                align:'center',
+                width:140,
+                sortable:true
+            },
+            {
+                field:'content',
+                title:'内容',
+                align:'center',
+                width:350
+            },
+            {
+                field:'updatetime',
+                title:'提交时间',
+                align:'center',
+                width:150,
+                sortable:true
+            },
+            {
+                field:'operate',
+                title:'操作',
+                align:'center',
+                width:100,
+                formatter:function (value, row, index) {
+                    return '<img src="jquery-easyui-1.3.4/themes/icons/back.png" title="查看" style="cursor: pointer;"  onclick="seecomment(\''+row.cid+'\')">&nbsp;&nbsp;&nbsp;&nbsp;'
+                            + '<img src="images/dele.gif" title="删除" style="cursor: pointer;" onclick="deleteOne(\''+row.cid+'\')">';
+                }
+            }
+        ]
+    ],
+    frozenColumns:[
+        [
+            {
+                field:'ck',
+                checkbox:true
+            }
+        ]
+    ],
+    toolbar:[
+        "-",
+        {
+            text:"删除所选",
+            iconCls:"icon-remove",
+            handler:function () {
+            	var rows = $("#commentList").datagrid("getSelections");
+            	if(rows.length==0) {
+            		showNoSelectLine();
+            		return ;
+            	}
+                var str = "";
+                for(var i=0; i<rows.length; i++) {
+                    if(i!=0) {
+                        str += ",";
+                    }
+                    str += rows[i].cid;
+                }
+                alert(str);
+            	$.messager.confirm('注意','危险操作，确定删除所选信息？',function(r){   
+            	    if (r) {   
+            	    	deleteAll(str);
+            	    }   
+            	});  
+            }
+        },
+        "-",
+        {
+            text:"取消所选",
+            iconCls:"icon-remove",
+            handler:function () {
+                $("#commentList").datagrid("unselectAll");
+            }
+        }
+
+    ],
+    onDblClickRow:function (index, rowData) {
+        //双击的时候先取消所有的选择
+        $("#commentList").datagrid("unselectAll");
+        //然后选择双击的那一行
+        $("#commentList").datagrid("selectRow", index);
+        //调用打开窗口方法
+		seecomment(rowData);
+    },
+    onRowContextMenu:function (e, rowIndex, rowData) {
+        e.preventDefault();
+        var grid = $("#commentList");
+        grid.datagrid("unselectAll");
+        grid.datagrid("selectRow", rowIndex);
+    },
+    onClickCell:function (rowIndex, field, value) {
+    }
+});
+
+var p = $("#commentList").datagrid('getPager');
+p.pagination({
+    beforePageText:'第', //页数文本框前显示的汉字
+    afterPageText:'页    共 {pages} 页',
+    displayMsg:'当前显示 {from} - {to} 条记录   共 {total} 条记录'
+});
+
+/**
+* 点击一行上面的删除按钮
+*/
+function deleteOne(id){
+	if(confirm("危险操作，确定要删除这一条数据吗？")) {
+		deleteAll(id);
+	}
+}
+
+/**
+* 传入要删除的所有id，以逗号间隔，传入并删除
+*/
+function deleteAll(idStr) {
+	$.ajax({
+		url:"/admin/comment/delete",
+		type:"get",
+		data:{"idStr":idStr},
+		success:function(data) {
+			if(data>0) {
+				showMyMsgDialog(1500,"成功删除了 " + data + " 个数据！");
+				//只有成功才更新列表
+				$("#commentList").datagrid("reload");
+			} else {
+                showMyMsgDialog(1500,"没有删除一个数据！");
+			}
+		}
+	});
+}
+
+function seecomment(id) {
+    $.ajax({
+        url:"/admin/comment/see",
+        type:"get",
+        data:{"id":id},
+        success:function(data) {
+            $("#seeCommentForm").form("load", data);
+            $("#seeCommentWindow").window("open");
+        }
+    });
+}
+</script>

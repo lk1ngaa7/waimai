@@ -1,0 +1,273 @@
+<div>
+    <!-- 搜索框 -->
+    <!--<form id="newsSearchForm" onkeydown="if(event.keyCode==13){submitSearchNews();return false; }">-->
+        <!--<table style="height: 100%;">-->
+            <!--<tbody>-->
+            <!--<tr>-->
+                <!--<td>信息类型</td>-->
+                <!--<td colspan="3">-->
+                	<!--<input class="easyui-combotree" id="type" name="kind" data-options="url:'/admin/view/jsonData/newsType.json',method:'get'">-->
+                	<!--（可选择任意一个类型）-->
+                	<!--<script type="text/javascript">-->
+                		<!--$("#type").combotree({-->
+                			<!--onChange:function(){-->
+                				<!---->
+                			<!--}-->
+                		<!--});-->
+                	<!--</script>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>标题：</td>-->
+                <!--<td><input type="text" id="title" name="title"></td>-->
+
+                <!--<td rowspan="4">-->
+                    <!--<a href="#" onclick="submitSearchNews();" class="easyui-linkbutton">查询</a>-->
+                    <!--<a href="#" onclick="clearNewsSearchForm();" class="easyui-linkbutton">清空</a>                    -->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--</tbody></table>-->
+    <!--</form>-->
+
+    <!-- 数据表（使用js初始化） -->
+    <table id="newsList"></table>
+</div>
+
+
+<script type="text/javascript">
+
+$("#newsList").datagrid({
+    url:"/admin/news/newsList",
+    iconCls:'icon-edit', //图标
+    nowrap:true,
+    striped:true,
+    border:true,
+    collapsible:false, //是否可折叠的
+    fit:false, //自动大小
+    idField:'nid',
+    fitColumns:true,
+    singleSelect:false, //是否单选
+    pagination:true, //分页控件
+    rownumbers:true, //行号
+    showFooter:true,
+    pageSize:20,
+    pageList:[5,10,15,20,25,30],
+    //remoteSort: false,//本地排序只能排序本页的内容
+    columns:[
+        [
+            {
+                field:'nid', //这些field根据的是类的属性名而不是数据库的字段名
+                title:'编号',
+                width:80,
+                align:'center',
+                sortable:true
+            },
+            {
+                field:'kindStr',
+                title:'类型',
+                align:'center',
+                width:100,
+                sortable:true
+            },
+            {
+                field:'title',
+                title:'标题',
+                align:'left',
+                width:480,
+                sortable:true
+            },
+            {
+                field:'updatetime',
+                title:'发表时间',
+                align:'center',
+                width:150,
+                sortable:true
+            },
+            {
+                field:'operate',
+                title:'操作',
+                align:'center',
+                width:100,
+                formatter:function (value, row, index) {
+                    return '<img src="images/edit.gif" title="编辑" style="cursor: pointer;"  onclick="editOneNews('+index+')">&nbsp;&nbsp;&nbsp;&nbsp;'
+                            + '<img src="images/dele.gif" title="删除" style="cursor: pointer;" onclick="deleteOne(\''+row.nid+'\')">';
+                }
+            }
+        ]
+    ],
+    frozenColumns:[
+        [
+            {
+                field:'ck',
+                checkbox:true
+            }
+        ]
+    ],
+    toolbar:[
+        {
+            text:"添加",
+            iconCls:"icon-add",
+            handler:function () {
+                $("#addNewsWindow").window("open");
+            }
+        },
+        "-",
+        {
+            text:"编辑",
+            iconCls:"icon-edit",
+            handler:function () {
+				editNews();
+            }
+        },
+        "-",
+        {
+            text:"删除所选",
+            iconCls:"icon-remove",
+            handler:function () {
+            	var rows = $("#newsList").datagrid("getSelections");
+            	if(rows.length==0) {
+            		showNoSelectLine();
+            		return ;
+            	}
+            	var idStr = getIdArrayFromRows(rows);
+            	$.messager.confirm('注意','危险操作，确定删除所选信息？',function(r){   
+            	    if (r){   
+            	    	deleteAll(idStr); 
+            	    }   
+            	});  
+            }
+        },
+        "-",
+        {
+            text:"取消所选",
+            iconCls:"icon-remove",
+            handler:function () {
+                $("#newsList").datagrid("unselectAll");
+            }
+        },
+        "-",
+        {
+            text:"帮助",
+            iconCls:"icon-help",
+            handler:function () {
+                $("#newsHelpWindow").window("open");
+            }
+        }
+    ],
+    onDblClickRow:function (index, rowData) {
+        //双击的时候先取消所有的选择
+        $("#newsList").datagrid("unselectAll");
+        //然后选择双击的那一行
+        $("#newsList").datagrid("selectRow", index);
+        //调用打开窗口方法
+        seeNews(rowData.nid);
+    },
+    onRowContextMenu:function (e, rowIndex, rowData) {
+        e.preventDefault();
+        var grid = $("#newsList");
+        grid.datagrid("unselectAll");
+        grid.datagrid("selectRow", rowIndex);
+    },
+    onClickCell:function (rowIndex, field, value) {
+    }
+});
+
+var p = $("#newsList").datagrid('getPager');
+p.pagination({
+    beforePageText:'第', //页数文本框前显示的汉字
+    afterPageText:'页    共 {pages} 页',
+    displayMsg:'当前显示 {from} - {to} 条记录   共 {total} 条记录'
+});
+
+//新闻搜索的提交
+//function submitSearchNews () {
+//    $("#newsList").datagrid("load", {
+//        title:$("#title").val(),
+//        time1:$("#newsTime1").val(),
+//        time2:$("#newsTime2").val(),
+//        hasCover:$("#hasCover").val(),
+//        type_id:$("input[name='type_id']").val()
+//    });
+//}
+
+/**
+ * 根据数据表格的行数组获取他们的id列
+ */
+function getIdArrayFromRows(rows) {
+	var str = "";
+	for(var i=0; i<rows.length; i++) {
+		if(i!=0) {
+			str += ",";
+		}
+		str += rows[i].nid;
+	}
+	return str;
+}
+
+/**
+ * 点击一行上面的删除按钮
+ */
+function deleteOne(id){
+	if(confirm("危险操作，确定要删除这一条数据吗？")) {
+		deleteAll(id);
+	}
+}
+
+/**
+ * 传入要删除的所有id，以逗号间隔，传入并删除
+ */
+function deleteAll(idStr) {
+	$.ajax({
+		url:"/admin/news/delete",
+		type:"get",
+		data:{"idStr":idStr},
+		success:function(data) {
+			if(data>0) {
+				$.messager.alert("提示","成功删除了 " + data + " 个数据！");
+				//只有成功才更新列表
+				$("#newsList").datagrid("reload");
+			} else {
+				$.messager.alert("提示","没有删除一个数据！");
+			}
+		}
+	});
+}
+
+/**
+ * 获取数据列表中已经选择的行，进行编辑
+ */
+function editNews() {
+	var rows = $("#newsList").datagrid("getSelections");
+	if(rows.length ==1) {
+		$.ajax({
+	     	url:"/admin/news/see?nid="+rows[0].nid,
+	     	type:"get",
+	     	success:function (data) {
+	     		$("#addNewsForm").form("load", data);
+	     		$("#addNewsWindow").window("open");
+	     		//将内容设置到编辑框内（因为easyui不能帮我们设置，只有手动设置了）
+	     		newsEditor.html(data.content);
+	     		$('#addNewsTypeTree').combotree('setValue', data.kind);
+	     	}
+	    });
+	} else if(rows.length > 1) {
+		$.messager.alert("提示","您只能选择一行进行编辑！");
+	} else {
+		$.messager.alert("提示","您没有选择任何信息进行编辑！");
+	}
+}
+
+/**
+ * 点击每一行右侧的编辑按钮
+ */
+function editOneNews(index) {
+	$("#newsList").datagrid("unselectAll");
+	$("#newsList").datagrid("selectRow", index);
+	editNews();
+}
+
+//清理新闻查询的条件
+function clearNewsSearchForm() {
+	$("#newsSearchForm").form("clear");
+}
+</script>

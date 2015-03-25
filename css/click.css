@@ -1,0 +1,263 @@
+@charset "utf-8";
+
+*::-moz-selection {
+    background: none repeat scroll 0 0 #27c4c4;
+    color: #fff;
+    text-shadow: none;
+}
+*::selection {
+    background: none repeat scroll 0 0 #27c4c4;
+    color: #fff;
+    text-shadow: none;
+}
+
+@-webkit-viewport{width:device-width}
+@-moz-viewport{width:device-width}
+@-ms-viewport{width:device-width}
+@-o-viewport{width:device-width}
+@viewport{width:device-width}
+
+html{ height: 100%; }
+body{
+    background: #27c4c4 url("../img/bg.png"); margin: 0px;
+    height: 100%;
+}
+a{ cursor: url(../img/hover.ico), pointer; text-decoration: none}
+#wrapper{
+    text-align: center
+}
+#wrapperInner{
+    max-width: 1000px; min-width: 817px; width: 100%;
+    display: inline-block;
+}
+#topBar{
+    position: relative;
+    text-align: right;
+    line-height: 132px;
+    margin-top: 10px;
+}
+#topBar > a{
+    background: url("../img/icon.png");
+    vertical-align: middle;
+    display: inline-block;
+    text-align: left;
+    *display:inline; /* IE7 block 元素 */
+    *zoom:1;
+}
+#itemType{
+    width: 118px;height: 132px; left: 80px;top:70px;
+    background-position: -0px -0px !important;font: 22px/22px '宋体';color: #fff;
+    float: left; cursor: default; overflow: hidden;text-align: center !important;
+}
+#itemType table{
+    width: 100%; height: 110px; table-layout: fixed;
+}
+#itemPrev, .itemNext, .itemIndex{
+    width: 92px;height: 70px; font: bold 16px/70px '微软雅黑';color: #333;text-indent: 20px;
+    background-position: -7px -149px !important;
+}
+.itemIndex{
+    text-indent: 15px
+}
+#storeDesc{
+    float: left; font: 26px/33px '宋体'; color: #000; margin-top: 20px; margin-left: 130px; text-indent: -110px; text-align: left
+}
+.commentStar1, .commentStar2, .commentStar3, .commentStar4, .commentStar5{
+    width: 168px; height: 33px; margin-top: 10px; background: url(../img/commentStar.png);
+}
+.commentStar1{
+    background-position: -140px -0px;
+}
+.commentStar2{
+    background-position: -105px -0px;
+}
+.commentStar3{
+    background-position: -70px -0px;
+}
+.commentStar4{
+    background-position: -35px -0px;
+}
+#commentInner{
+    font: bold  18px/33px '宋体';
+}
+#commentInner > span{
+    display: inline-block; vertical-align: middle; margin:0px;
+}
+
+
+#content{
+    text-align: left
+}
+#recommendation > p{
+    font: bold  24px/36px '宋体';
+}
+#recommendation > p > span{
+    font: bold  28px/46px '宋体'; display: block;
+}
+#map{
+    max-width: 500px; width: 50%; float: left; margin: 0px 20px 20px 0px; position: relative;
+    overflow: hidden;
+}
+#map > img{
+    width: 100%; border-radius: 20px;
+}
+.btn_1{
+    background: #f42552; color: #fff; border: 3px solid #333; margin-left: 20px; font: 14px/18px 'Georgia', '宋体';
+    border-radius: 5px; padding: 5px 10px;
+}
+
+.btn_1:active{
+    background: #fff; color: #f42552; border: 3px solid #333;
+}
+
+
+#comment{
+    margin: 20px 0px 40px 0px;
+}
+#comment > div{
+    float: left; width: 35%; font: 26px/32px '宋体';
+}
+#comment > div > span{
+    display: block; width: 95px; height: 80px; background: url(../img/itemBg2.png); font: 24px/80px '宋体'; color: #fff; text-indent: 15px;
+}
+
+#showCouponInfoCover{
+    position: fixed; width: 100%; height: 100%;background: rgba(39, 196, 196, .5); top:0px; left:0px;
+}
+
+#showCouponInfoCover > div{
+    position: fixed;
+    left: 50%;
+    top:50%;
+}
+#showCouponInfoCover > div > div{
+    width: 400px; height: 200px;
+    margin: -100px 0px 0px -200px;
+    background: #fff;
+    border: 3px solid #333; font: 14px/18px 'Georgia', '宋体';
+    border-radius: 5px; padding: 15px 20px;
+}
+
+.dialogueH1{
+    font: 18px/18px '宋体';color: #333;
+}
+.dialogueH1 > span{
+    font-family: 'Georgia';color: #f42552;
+}
+
+.couponInfoContent > table{
+    width: 100%; font: 20px/33px 'Georgia', '宋体'; color: #333;table-layout: fixed;
+}
+.couponInfoContent > table th, #orderList > table td{
+    text-align: left;
+}
+#orderList > table td{
+    font-size: 24px; color: #444; padding: 0px;
+}
+.couponInfoContent > table td > div {
+    position: relative;
+}
+.delete{
+    display: none; width: 51px; height: 25px; background: url(../img/delete.png); position: absolute; right: 100px; top:5px;
+}
+.delete:active{
+    background-position: -0px -25px;
+}
+.amount{
+    display: inline-block; *display: inline; *zoom: 1; font: 0px/0px '宋体'
+}
+.amount > *{
+    display: inline-block; vertical-align: middle;
+}
+.amount > input{
+    background: url(../img/a.png) -406px -41px; width: 52px; height: 27px; border: 1px solid #ddd; font: 16px/27px '宋体'; color: #444; padding-left: 5px; margin-right: 3px;
+}
+.amount > span > span{
+    width: 15px; height: 12px; display: block; background: url(../img/b.png) -63px -64px; border: 1px solid #ddd; cursor: pointer
+}
+.amount > span > span:first-child{
+    margin-bottom: 3px; background-position: -33px -17px;
+}
+
+@media screen and (max-width: 800px) {
+    #foodMenu > ul{
+    width: 48%;
+    }
+}
+
+.animationUpDown {
+    -webkit-animation:animate .7s 0s infinite;
+    animation:animate .7s 0s infinite;
+}
+.animationClear {
+    -webkit-animation:animate2 .2s 0s 1;
+    animation:animate2 .2s 0s 1;
+}
+@keyframes animate{                           /*webkit - keyframe*/
+	0% {
+	    opacity:0.6;
+		transform:translate(0px, -10px);
+		animation-timing-function: ease-in;
+	    }
+	50% {
+	    opacity:1;
+        transform:translate(0px, 0px);
+	    animation-timing-function: ease-out;
+	}
+    100% {
+        opacity:0.6;
+	    transform:translate(0px, -10px);
+    }
+}
+@-webkit-keyframes animate{                           /*webkit - keyframe*/
+	0% {
+	    opacity:0.6;
+		-webkit-transform:translate(0px, -10px);
+		-webkit-animation-timing-function: ease-in;
+	    }
+	50% {
+	    opacity:1;
+        -webkit-transform:translate(0px, 0px);
+	    -webkit-animation-timing-function: ease-out;
+	}
+    100% {
+        opacity:0.6;
+	    -webkit-transform:translate(0px, -10px);
+    }
+}
+@keyframes animate2{
+	0% {
+	    opacity:0.5;
+        transform:translate(0px, -10px);
+	    animation-timing-function: ease-out;
+	}
+    100% {
+        opacity:1;
+        transform:translate(0px, 0px);
+    }
+}
+@-webkit-keyframes animate2{
+	0% {
+		  opacity:0.5;
+          -webkit-transform:translate(0px,-10px);
+	      -webkit-animation-timing-function: ease-out;
+	    }
+    100% {
+        opacity:1;
+        -webkit-transform:translate(0px, 0px);
+    }
+}
+
+.clear{
+    clear:both;
+    height:0px;
+    line-height:0px;
+    font-size:0px;
+    visibility:hidden;
+    overflow:hidden;
+}
+
+
+
+
+

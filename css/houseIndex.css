@@ -1,0 +1,183 @@
+@charset "utf-8";
+
+*::-moz-selection {
+    background: none repeat scroll 0 0 #27c4c4;
+    color: #fff;
+    text-shadow: none;
+}
+*::selection {
+    background: none repeat scroll 0 0 #27c4c4;
+    color: #fff;
+    text-shadow: none;
+}
+
+@-webkit-viewport{width:device-width}
+@-moz-viewport{width:device-width}
+@-ms-viewport{width:device-width}
+@-o-viewport{width:device-width}
+@viewport{width:device-width}
+
+html{ height: 100%; }
+body{
+    background: #27c4c4 url("../img/bg.png"); margin: 0px;
+    height: 100%;
+}
+a{text-decoration: none}
+#wrapper{
+    position:relative;
+    min-height: 100%;
+}
+#wrapperInner{
+    position: absolute;
+    top:50%;
+    width: 100%;
+
+}
+#wrapperInner2{
+    text-align: center;
+    margin-top: -270px;
+}
+#content{
+    width: 660px; height: 545px;
+    background: url("../img/houseBg.png");
+    display: inline-block;
+    position: relative;
+}
+#content > a{
+    background: url("../img/itemHouse.png");
+    display: block;
+    position: absolute;
+    cursor: url(../img/hover.ico), pointer;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: -webkit-transform .2s;
+    -moz-transition: -moz-transform .2s;
+    -ms-transition: -ms-transform .2s;
+    -o-transition: -o-transform .2s;
+    transition: transform .2s;
+}
+#itemHouse{
+    width: 175px;height: 150px; left: 105px;top:300px;
+    background-position: -105px -300px !important;
+}
+#itemHotel{
+    width: 165px;height: 120px; left: 295px;top:223px;
+    background-position: -295px -223px !important;
+}
+#itemHouseL{
+    width: 120px;height: 80px; left: 17px;top:150px;
+    background-position: -17px -150px !important;
+}
+#itemHouseS{
+    width: 125px;height: 95px; left: 175px;top:135px;
+    background-position: -175px -135px !important;
+}
+#itemHotelN{
+    width: 125px;height: 113px; left: 335px;top:30px;
+    background-position: -335px -30px !important;
+}
+#itemHotelJ{
+    width: 130px;height: 120px; left: 485px;top:110px;
+    background-position: -485px -110px !important;
+}
+#itemHotelG{
+    width: 130px;height: 90px; left: 510px;top:270px;
+    background-position: -510px -270px !important;
+}
+#itemHotelM{
+    width: 120px;height: 90px; left: 460px;top:425px;
+    background-position: -460px -425px !important;
+}
+
+
+#menu{
+    position: absolute;bottom: -20px; right: -50px;
+}
+#menu > a{
+    display: block; width: 72px; height: 55px; background: url(../img/houseBg.png) -695px -483px;font: bold 16px/55px '微软雅黑';color: #000;text-indent: 15px; text-align: left
+}
+
+
+.animationUpDown {
+    -webkit-animation:animate .7s 0s infinite;
+    animation:animate .7s 0s infinite;
+}
+.animationClear {
+    /*-webkit-animation-name:animate2 .9s 0s 1 alternate;
+    animation-name:animate2 .9s 0s 1 alternate;*/
+    -webkit-animation:animate2 .2s 0s 1;
+    animation:animate2 .2s 0s 1;
+}
+
+.animationbounceInDown{-webkit-animation:bounceInDown .8s 0s ease both;animation:bounceInDown .8s 0s ease both;}
+
+@-webkit-keyframes bounceInDown{
+	0%{opacity:0;-webkit-transform:translateY(-2000px)}
+	60%{opacity:1;-webkit-transform:translateY(30px)}
+	80%{-webkit-transform:translateY(-10px)}
+	100%{-webkit-transform:translateY(0)}
+}
+@keyframes bounceInDown{
+	0%{opacity:0;transform:translateY(-2000px)}
+	60%{opacity:1;transform:translateY(30px)}
+	80%{transform:translateY(-10px)}
+	100%{transform:translateY(0)}
+}
+
+@keyframes animate{                           /*webkit - keyframe*/
+	0% {
+	    opacity:0.6;
+		transform:translate(0px, -10px);
+		animation-timing-function: ease-in;
+	    }
+	50% {
+	    opacity:1;
+        transform:translate(0px, 0px);
+	    animation-timing-function: ease-out;
+	}
+    100% {
+        opacity:0.6;
+	    transform:translate(0px, -10px);
+    }
+}
+@-webkit-keyframes animate{                           /*webkit - keyframe*/
+	0% {
+	    opacity:0.6;
+		-webkit-transform:translate(0px, -10px);
+		-webkit-animation-timing-function: ease-in;
+	    }
+	50% {
+	    opacity:1;
+        -webkit-transform:translate(0px, 0px);
+	    -webkit-animation-timing-function: ease-out;
+	}
+    100% {
+        opacity:0.6;
+	    -webkit-transform:translate(0px, -10px);
+    }
+}
+@keyframes animate2{
+	0% {
+	    opacity:0.5;
+        transform:translate(0px, -10px);
+	    animation-timing-function: ease-out;
+	}
+    100% {
+        opacity:1;
+        transform:translate(0px, 0px);
+    }
+}
+@-webkit-keyframes animate2{
+	0% {
+		  opacity:0.5;
+          -webkit-transform:translate(0px,-10px);
+	      -webkit-animation-timing-function: ease-out;
+	    }
+    100% {
+        opacity:1;
+        -webkit-transform:translate(0px, 0px);
+    }
+}

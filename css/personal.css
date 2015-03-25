@@ -1,0 +1,105 @@
+.personalF{
+    position: fixed;
+    top:42%;
+    left: 0px;
+    display: block;
+}
+.personalF > div{
+    position: relative;
+}
+.personalF > div > span{
+    display: block;
+    background: url(../img/centerIco2.png);
+    position: absolute;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: left .2s, top .3s, opacity .3s;
+    -moz-transition: left .2s, top .3s, opacity .3s;
+    -ms-transition: left .2s, top .3s, opacity .3s;
+    -o-transition: left .2s, top .3s, opacity .3s;
+    transition: left .2s, top .3s, opacity .3s;
+    left:-100px;
+    top:55px;
+    opacity: 0;
+}
+.personalF #personal{
+    width: 145px; height: 110px;
+    left:-100px;
+    top:0px;
+    opacity: 1;
+}
+
+.personalF #consumptionPoint{
+    width: 85px; height: 92px;
+    background-position: -0px -113px;
+
+}
+.personalF #coupon{
+    width: 105px; height: 80px;
+    background-position: -85px -115px;
+
+}
+.personalF #collection{
+    width: 105px; height: 85px;
+    background-position: -85px -210px;
+
+}
+.personalF #infoModify{
+    width: 80px; height: 100px;
+    background-position: -0px -205px;
+}
+
+.hover #personal{
+    left:0px;
+    top:0px;
+}
+.hover #consumptionPoint{
+    width: 85px; height: 92px;
+    background-position: -0px -113px;
+    top:-100px;
+    left:110px;
+    opacity: 1;
+
+}
+.hover #coupon{
+    width: 105px; height: 80px;
+    background-position: -85px -115px;
+    top:-10px; left:160px;
+    opacity: 1;
+
+}
+.hover #collection{
+    width: 105px; height: 85px;
+    background-position: -85px -210px;
+    top:80px; left:140px;
+    opacity: 1;
+
+}
+.hover #infoModify{
+    width: 80px; height: 100px;
+    background-position: -0px -205px;
+    top:130px; left:90px;
+    opacity: 1;
+}
+
+
+.personalF > div > span > a{
+    display: block;
+    width: 60px; height: 30px;
+    font: 24px/30px 'Georgia', 'Constantia', 'Arial';
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+}
+.personalF #consumptionPoint > a{
+    margin: 35px 0px 0px 12px;
+}
+.personalF #coupon > a{
+    margin: 35px 0px 0px 32px;
+}
+.personalF #collection > a{
+    margin: 45px 0px 0px 32px;
+}

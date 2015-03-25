@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>安居客</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="css/publish.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="/js/jq181.js"></script>
+<script type="text/javascript">
+    $(function(){
+        /*验证*/
+
+        String.prototype.trim = function(){
+            return this.replace(/(^\s+)|(\s+$)/g,"");
+        }
+        var validate = {
+            name:{ok:false, min:1, max:50, info:"请输入名称(1～50位)", required:true},
+            description:{ok:true, max:50, info:"请输入描述(50个字符以内)", required:false},
+            smallImage:{ok:false, required:true},
+            mainImage:{ok:false, required:true},
+            type:{ok:false, min:1, max:50, info:"请输入类型(1～50个字符)", required:true},
+            pubTime:{ok:false, regexp:/^\d{4}\/\d{1,2}\/\d{1,2}$/, info:"请输入开盘时间(yyyy/mm/dd)", required:true},
+            totalPrice:{ok:false, regexp:/^\d{1,10}(.\d{1,10})?$/, info:"请输入总价", required:true},
+            price:{ok:false, regexp:/^\d{1,10}(.\d{1,10})?$/, info:"请输入单价", required:true},
+            area:{ok:false, regexp:/^\d{1,10}(.\d{1,10})?$/, info:"请输入面积"},
+            address:{ok:false, min:1, max:50, info:"请输入地址(1～50个字符)", required:true},
+            houseType:{ok:false, min:1, max:50, info:"请输入户型(1～50个字符)", required:true},
+            tid:{ok:false, not:0, required:true}
+        }
+        $(".name").each(function(){
+            var $obj = $(this),
+                parent = $obj.parent(),
+                fake = $("<input class='fake'>");
+
+            $obj.bind("focus",function(e){
+                focus(e, $obj);
+            }).bind("propertychange",function(e){
+                input(e, $obj);
+            }).bind("input",function(e){
+                input(e, $obj);
+            }).bind("paste",function(e){
+                input(e, $obj);
+            }).bind("cut",function(e){
+                input(e, $obj);
+            }).bind("blur",function(e){
+                blur(e, $obj, fake);
+            });
+
+            parent.append(fake);
+            if(validate[$obj.attr("name")].info)
+                fake.val(validate[$obj.attr("name")].info);
+            fake.bind("focus", function(){
+                $obj.show().focus();
+                fake.hide();
+            });
+        });
+
+        $("#tid").bind("change", function(){
+            var $obj = $(this),
+                    flag = true;
+            if(validate[$obj.attr("name")].not && validate[$obj.attr("name")].not === $obj.find('option:selected').index())
+                flag = false;
+            validate[$obj.attr("name")].ok = flag;
+        });
+
+        $(".file").bind("change", function(){
+            var $obj = $(this),
+                    flag = true;
+            if(validate[$obj.attr("name")].required && $obj.val() === "")
+                flag = false;
+            validate[$obj.attr("name")].ok = flag;
+        });
+
+        $("#submit").bind("click", submit);
+
+        function focus(e, $obj){
+            cursorEnd($obj);
+        }
+        function blur(e ,$obj, fake){
+            $obj.val($obj.val().trim());
+            if( !input(e, $obj)){
+                $obj.hide();
+                fake.show();
+            }
+        }
+        function input(e, $obj){
+            var val = $obj.val(),
+                    flag = true;
+            if(validate[$obj.attr("name")] && (validate[$obj.attr("name")].required || (val !== "" && !validate[$obj.attr("name")].required))){
+                if(validate[$obj.attr("name")].min) {
+                    if(validate[$obj.attr("name")].min > val.length) flag = false;
+                }
+                if(validate[$obj.attr("name")].max) {
+                    if(validate[$obj.attr("name")].max < val.length) flag = false;
+                }
+                if(validate[$obj.attr("name")].regexp) {
+                    if(!val.match(validate[$obj.attr("name")].regexp)) flag = false;
+                }
+                if(validate[$obj.attr("name")].equalTo){
+                    var eqObj = $("#" + validate[$obj.attr("name")].equalTo);
+                    if(eqObj.val() !== val || !validate[eqObj.attr("name")].ok) flag = false;
+                }
+            }
+            validate[$obj.attr("name")].ok = flag;
+            console.log(flag)
+            return flag;
+        }
+
+        function cursorEnd($obj){
+            if($obj[0].createTextRange){
+                var a =$obj[0].createTextRange();
+                a.moveStart('character',$obj[0].value.length);
+                a.collapse(true);
+                a.select();
+            }
+        }
+
+        function submit(){
+            var flag = true;
+            for(var i in validate){
+                if(!validate[i].ok) flag = false;
+            }
+            if(!flag){
+                return false;
+            }
+        }
+    });
+</script>
+</head>
+<body>
+    <div id="container">
+		<div id="logo">
+			<a href="#" class="text"></a>
+			<a href="index.html" id="register">返回首页</a>
+		</div>
+		<div id="bg_line">
+		</div>
+		<div id="main">
+			<h3>填写出售信息</h3>
+			<div id="box">
+				<form action="" method="post">
+                    <div>
+                        <span>名称</span>
+                        <input type="text" name="name" class="name"/>
+                    </div>
+                    <div>
+                        <span>描述</span>
+                        <input type="text" name="description" class="name"/>
+                    </div>
+                    <div>
+                        <span>小图</span>
+                        <input type="file" name="smallImage" class="file"/>
+                    </div>
+
+                    <div>
+                        <span>主图</span>
+                        <input type="file" name="mainImage" class="file"/>
+                    </div>
+                    <div>
+                        <span>类型</span>
+                        <input type="text" name="type" class="name"/>
+                    </div>
+                    <div>
+                        <span>开盘时间</span>
+                        <input type="text" name="pubTime" class="name"/>
+                    </div>
+
+                    <div>
+                        <span>总价</span>
+                        <input type="text" name="totalPrice" class="name"/>
+                    </div>
+                    <div>
+                        <span>单价</span>
+                        <input type="text" name="price" class="name"/>
+                    </div>
+                    <div>
+                        <span>面积</span>
+                        <input type="text" name="area" class="name"/>
+                    </div>
+
+                    <div>
+                        <span>地址</span>
+                        <input type="text" name="address" class="name"/>
+                    </div>
+                    <div>
+                        <span>户型</span>
+                        <input type="text" name="houseType" class="name"/>
+                    </div>
+                    <div>
+                        <span>所属商圈</span>
+                        <select name="tid" id="tid">
+                            <option value="1">-- 请选择商圈 --</option>
+                            <option value="1">商圈A</option>
+                            <option value="2">商圈B</option>
+                            <option value="3">商圈C</option>
+                            <option value="4">商圈D</option>
+                            <option value="5">商圈E</option>
+                        </select>
+                    </div>
+                    <div>
+                        <span></span>
+                        <input id="submit" type="submit" value="提交"/>
+                    </div>
+				</form>
+			</div>
+		</div>
+		<!--<div id="footer">
+			<a href="#">关于安居客|</a><a href="#">关于我们|</a><a href="#">最新问答|</a><a href="#">相关链接</a>
+		</div>-->
+	</div>   
+</body>
+</html>

@@ -1,0 +1,124 @@
+#main{
+	width:800px;
+	height:580px;
+	background:#f5f5f5;
+	margin-top:10px;
+}
+#leftbody{
+	width:180px;
+	height:322px;
+	margin:10px 0 0 14px;
+	float:left;
+}
+.visited{
+	background:#77B32D;
+}
+
+#man{
+	width:180px;
+	height:180px;
+	background-color:#FFF;
+	border:1px solid #C0C0C0;
+}
+#man img{
+	margin:20px 0 0 20px;
+	float:left;
+}
+#man span{
+	display:block;
+	width:50px;
+	margin:50px 0 0 22px; 
+	float:left;
+}
+#list{
+	width:180px;
+	height:200px;
+}
+#list li{
+	width:180px;
+	height:40px;
+	padding:0px;
+	border-bottom:1px solid #C0C0C0;
+	border-left:1px solid #C0C0C0;
+	border-right:1px solid #C0C0C0;
+}
+#list a{
+	width:160px;
+	height:30px;
+	font-size:16px;
+	word-spacing:5px;
+	color:black;
+	display:block;
+	text-align:center;
+	padding:10px 0 0 20px;
+}
+#list a:hover{
+	background:#CBCBD6;
+}
+#rightbody{
+	width:570px;
+	height:560px;
+	background-color:#FFF;
+	float:left;
+	margin:10px 0 0 16px;
+	border:1px solid #C0C0C0;
+}
+#rightbody h4{
+    line-height: 36px;
+}
+#line{
+	width:570px;
+	height:2px;
+	background:#66CC00;
+	margin-top:5px;
+}
+#box{
+    width:380px;
+    float:left;
+    margin:90px 100px;
+    font-size:20px;
+}
+#box > form > div{
+    margin-bottom: 10px;
+}
+#box > form > div > span{
+    width:100px; display: inline-block; vertical-align: middle;
+}
+#box input{
+    vertical-align: middle;
+    font: 14px/14px '宋体';
+    border:1px solid #ccc;
+}
+.name, .fake{
+    width:200px;
+    height: 14px;
+    display: none; padding: 5px 10px;
+}
+.fake{
+    display: inline; color: #666
+}
+.config{
+	width:105px;
+	height:35px;
+	margin-top:10px;
+	margin-left:100px;
+	font-size:20px;
+	color:#FFF;
+	border-radius: 4px;
+	background:#ff7300;
+}
+#footer{
+	width:800px;
+	height:30px;
+	float:left;
+	margin-top:5px;
+	text-align:center;
+	color:#FFF;
+	padding-top:12px;
+	font-size:15px;
+	border-top:1px solid #C0C0C0;
+}
+#footer a{
+	color:gray;
+	padding-left:10px;
+}

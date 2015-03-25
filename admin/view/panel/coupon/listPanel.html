@@ -1,0 +1,192 @@
+<div>
+    <!-- 搜索框 -->
+    <form id="newsSearchForm" onkeydown="if(event.keyCode==13){submitSearchNews();return false; }">
+        <table style="height: 100%;">
+            <tbody>
+            <!--<tr>-->
+                <!--<td>信息类型</td>-->
+                <!--<td colspan="3">-->
+                    <!--<input class="easyui-combotree" id="type" name="kind"-->
+                           <!--data-options="url:'/admin/view/jsonData/newsType.json',method:'get'">-->
+                <!--</td>-->
+            <!--</tr>-->
+            <tr>
+                <td>优惠券号码：</td>
+                <td><input type="text" id="couponCid" name="cid"></td>
+                <td rowspan="4">
+                    <a href="#" onclick="submitSearchCoupon();" class="easyui-linkbutton">查询</a>
+                </td>
+            </tr>
+            <!--<tr>-->
+            <!--<td>创建时间</td>-->
+            <!--<td><input id="newsTime1" name="time2" type="text" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"></td>
+            <!--&ndash;&gt;-->
+            <!--<td align="center">至</td>-->
+            <!--<td><input id="newsTime2" name="time2" type="text" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"></td>
+            <!--&ndash;&gt;-->
+            <!--</tr>-->
+            </tbody>
+        </table>
+    </form>
+
+    <!-- 数据表（使用js初始化） -->
+    <table id="couponList"></table>
+</div>
+
+<script type="text/javascript">
+
+    $("#couponList").datagrid({
+        url: "/admin/coupon/list",
+        iconCls: 'icon-edit', //图标
+        nowrap: true,
+        striped: true,
+        border: true,
+        collapsible: false, //是否可折叠的
+        fit: false, //自动大小
+        idField: 'cid',
+        fitColumns: true,
+        singleSelect: false, //是否单选
+        pagination: true, //分页控件
+        rownumbers: true, //行号
+        showFooter: true,
+        pageSize: 20,
+        pageList: [5, 10, 15, 20, 25, 30],
+        //remoteSort: false,//本地排序只能排序本页的内容
+        columns: [
+            [
+                {
+                    field: 'cid', //这些field根据的是类的属性名而不是数据库的字段名
+                    title: '优惠券编号',
+                    width: 110,
+                    align: 'center',
+                    sortable: true
+                },
+                {
+                    field: 'placeName',
+                    title: '店铺名称',
+                    align: 'left',
+                    width: 220,
+                    sortable: true
+                },
+                {
+                    field: 'updatetime',
+                    title: '修改时间',
+                    align: 'center',
+                    width: 150,
+                    sortable: true
+                },
+                {
+                    field: 'statusStr',
+                    title: '优惠券状态',
+                    align: 'center',
+                    width: 120,
+                    sortable: true,
+                    styler: function (value, row, index) {
+                        if (value == "已使用") {
+                            return 'background-color:#C0C0C0;color:black;';
+                        } else if (value == "未使用") {
+                            return 'background-color:#0099FF;color:white;';
+                        }
+                    }
+                },
+                {
+                    field: 'operate',
+                    title: '操作',
+                    align: 'center',
+                    width: 250,
+                    formatter: function (value, row, index) {
+                        return '<img src="images/check.png" title="处理" style="cursor: pointer;"  onclick="disposeCoupon(' + row.cid + ')">&nbsp;';
+                    }
+                }
+            ]
+        ],
+        frozenColumns: [
+            [
+                {
+                    field: 'ck',
+                    checkbox: true
+                }
+            ]
+        ],
+        toolbar: [
+            {
+                text: "处理",
+                iconCls: "icon-edit",
+                handler: function () {
+                    var rows = $("#couponList").datagrid("getSelections");
+                    if(rows.length==0) {
+                        showNoSelectLine();
+                        return ;
+                    }
+                    for(var i=0; i<rows.length; i++) {
+                        disposeCoupon(rows[i].cid);
+                    }
+                }
+            },
+            "-",
+            {
+                text: "取消所选",
+                iconCls: "icon-remove",
+                handler: function () {
+                    $("#couponList").datagrid("unselectAll");
+                }
+            },
+            "-",
+            {
+                text: "先选中店铺，再点击添加菜品",
+                iconCls: "icon-help",
+                handler: function () {
+                }
+            }
+        ],
+        onDblClickRow: function (index, rowData) {
+            //双击的时候先取消所有的选择
+            $("#couponList").datagrid("unselectAll");
+            //然后选择双击的那一行
+            $("#couponList").datagrid("selectRow", index);
+            //调用打开窗口方法
+        },
+        onRowContextMenu: function (e, rowIndex, rowData) {
+            e.preventDefault();
+            var grid = $("#couponList");
+            grid.datagrid("unselectAll");
+            grid.datagrid("selectRow", rowIndex);
+        },
+        onClickCell: function (rowIndex, field, value) {
+        }
+    });
+
+    var p = $("#couponList").datagrid('getPager');
+    p.pagination({
+        beforePageText: '第', //页数文本框前显示的汉字
+        afterPageText: '页    共 {pages} 页',
+        displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录'
+    });
+
+    function submitSearchCoupon () {
+        $("#couponList").datagrid("load", {
+            cid:$("#couponCid").val()//,
+//            time1:$("#newsTime1").val(),
+//            time2:$("#newsTime2").val(),
+//            hasCover:$("#hasCover").val(),
+//            type_id:$("input[name='type_id']").val()
+        });
+    }
+
+    function disposeCoupon(cid) {
+        $.ajax({
+            url: "/admin/coupon/useCoupon",
+            data: {cid: cid},
+            type: "get",
+            success: function (data) {
+                if (data == "1") {
+                    showMyMsgDialog(2000, "设置状态成功！");
+                    $("#couponList").datagrid("reload");
+                } else {
+                    showMyMsgDialog(2000, "设置状态失败！");
+                }
+            }
+        });
+    }
+
+</script>

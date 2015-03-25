@@ -1,0 +1,33 @@
+@-webkit-viewport{width:device-width}
+@-moz-viewport{width:device-width}
+@-ms-viewport{width:device-width}
+@-o-viewport{width:device-width}
+@viewport{width:device-width}
+
+body{
+    margin: 0px;
+}
+#test{
+    text-align: justify; font-size: 0px;
+}
+.aligen, .aligenFix{
+    display: inline-block;width: 25%;height: 50px;background: #333;box-sizing: border-box; -moz-box-sizing: border-box; border: 1px solid #3489ff;
+}
+
+@media screen and (max-width: 800px) {
+    .aligen, .aligenFix{
+        display: inline-block;width: 50%;height: 50px;background: #333
+    }
+}
+@media screen and (max-width: 400px) {
+    .aligen, .aligenFix{
+        display: inline-block;width: 100%;height: 50px;background: #333
+    }
+}
+.aligenFix{
+    width:0; height:0; padding:0; overflow:hidden; border: none;
+}
+
+
+
+

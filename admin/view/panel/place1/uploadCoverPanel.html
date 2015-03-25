@@ -1,0 +1,42 @@
+<form action="/admin/uploadCover"
+	encType="multipart/form-data" method="post" target="hidden_frame">
+	<label for="file">请选择文件：</label> <input type="file" id="place1ImgFile" name="file"
+		id="file" /> <br /> <input type="submit" name="submit" onclick="watchuploadStatus()"
+		value="点击上传" />
+		<span id="place1UploadSuccessTip"></span>
+	<iframe name='hidden_frame' id="hidden_frame" style="display:none"></iframe>
+	<!-- <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">点击上传</a> -->
+</form>
+
+
+<script type="text/javascript">
+	//该变量记录循环事件的id
+	var intervalInt = -1;
+	
+	//这个方法获取上传成功后的文件地址（相对于服务器）
+	function getUploadImgPath() {
+		var imgUrl = $(window.frames["hidden_frame"].document).find("#imgUrl").val();
+		return imgUrl;
+	}
+	
+	//获取上传的状态（setInterval来调用）
+	function getUploadStatus() {
+		var imgUrl = $(window.frames["hidden_frame"].document).find("#imgUrl").val();
+		if(imgUrl!=null && imgUrl!="") {
+			$.messager.alert('提示', '封面图片上传成功！'); 
+			setTimeout("$('#place1UploadWindow').window('close')", 2000); 
+			//将值设置到添加新闻表单的imgUrl（hidden的input）中
+			$("#imgUrl").val(imgUrl);
+			$("#openPlace1UploadWinTip").html("<font color='green'>已上传成功</font>");
+			$("#place1UploadSuccessTip").html("<span id='place1UploadWindowSuccessTip' style='color:green;font-wight:bolder;'>上传成功！ 2 秒后自动关闭上传窗口！</span>");
+			
+			clearInterval(intervalInt);
+		}
+	}
+	
+	function watchuploadStatus() {
+		//每隔500毫秒查看是否上传成功，如果成功则弹出提示！
+		intervalInt = setInterval("getUploadStatus()",500);
+		$("#place1UploadSuccessTip").html("<font color='blue'>正在上传...请耐心等候结果再关闭窗口。</font>");
+	}
+</script>

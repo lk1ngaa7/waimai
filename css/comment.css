@@ -1,0 +1,184 @@
+@charset "utf-8";
+
+*::-moz-selection {
+    background: none repeat scroll 0 0 #27c4c4;
+    color: #fff;
+    text-shadow: none;
+}
+*::selection {
+    background: none repeat scroll 0 0 #27c4c4;
+    color: #fff;
+    text-shadow: none;
+}
+
+@-webkit-viewport{width:device-width}
+@-moz-viewport{width:device-width}
+@-ms-viewport{width:device-width}
+@-o-viewport{width:device-width}
+@viewport{width:device-width}
+
+html{ height: 100%; }
+body{
+    background: #27c4c4 url("../img/bg.png"); margin: 0px;
+    height: 100%;
+}
+a{
+    cursor: url(../img/hover.ico), pointer;
+}
+#wrapper{
+    position:relative;
+    min-height: 100%;
+}
+#wrapperInner{
+    width: 100%;
+
+}
+#wrapperInner2{
+    text-align: center;
+}
+#content{
+    width: 860px; height: 283px;
+    background: url("../img/message.png");
+    display: inline-block;
+    position: relative;
+}
+#content > a{
+    width: 100px; height: 100px;
+    display: block; float: right;
+}
+#menu{
+    margin-top: 290px; text-align: left; font: 0px/0px '宋体';
+}
+#menu > a{
+    display: inline-block;
+    margin-left: 36px;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: -webkit-transform .2s;
+    -moz-transition: -moz-transform .2s;
+    -ms-transition: -ms-transform .2s;
+    -o-transition: -o-transform .2s;
+    transition: transform .2s;
+    width: 133px; height: 133px;
+}
+#menu > a:first-child{
+    margin: 0px;
+}
+
+
+
+#commentText > textarea{
+    -webkit-transition: background .2s, border-color .5s, box-shadow .5s;
+    -moz-transition: background .2s, border-color .5s, box-shadow .5s;
+    -ms-transition: background .2s, border-color .5s, box-shadow .5s;
+    -o-transition: background .2s, border-color .5s, box-shadow .5s;
+    transition: background .2s, border-color .5s, box-shadow .5s;
+    margin-top: 20px; background: #e6fffc; width: 98%; height: 80px; padding: 1%; overflow: hidden; border: 2px dashed #27c4c4; font: 16px/24px '宋体'; color: #000000;
+}
+#commentText > textarea:focus{
+    background: #fffbf9; color: #333; border-style: solid;
+}
+#commentText1{
+    font: 16px/40px '宋体'; color: #333;  text-align: right
+}
+#commentText1 > *{
+    vertical-align: middle;
+}
+.inputTip{ float: left;}
+.inputTip > span{ font: bold 16px/20px 'Georgia', 'Constantia', 'Arial'; color: #f42553; margin: 0px 5px 0px 5px; }
+#commentSubmit{
+    border: none; background: #27c4c4; font: 18px/30px '宋体'; color: #fff; margin-left: 20px;
+}
+
+#board{
+    background: #fff; border: 5px solid #1e1814; border-radius: 20px; width: 860px; display: inline-block; margin: -50px 0px 40px 0px; padding: 40px 20px 20px 20px; text-align: left
+}
+#comments{
+    background: #fff;  margin: 0px; overflow: hidden;
+}
+#comments > div{
+    margin: 5px 0px 10px 0px; border-bottom: 1px solid #dedede; padding-bottom: 10px
+}
+#comments > div > img{
+    width: 55px; height: 55px; float: left;
+}
+.comments2{
+    padding-left: 70px;
+}
+.comments2 > div:first-child{
+    text-align: right;margin-bottom: 3px; color: #20a4a4;
+}
+.comments2 > div{
+    font: 14px/ 24px '宋体'; color: #444
+}
+
+.comments2 > div:first-child > span:first-child{
+    float: left; font-weight: bold;
+}
+.animationUpDown {
+    -webkit-animation:animate .7s 0s infinite;
+    animation:animate .7s 0s infinite;
+}
+.animationClear {
+    /*-webkit-animation-name:animate2 .9s 0s 1 alternate;
+    animation-name:animate2 .9s 0s 1 alternate;*/
+    -webkit-animation:animate2 .2s 0s 1;
+    animation:animate2 .2s 0s 1;
+}
+@keyframes animate{                           /*webkit - keyframe*/
+	0% {
+	    opacity:0.6;
+		transform:translate(0px, -10px);
+		animation-timing-function: ease-in;
+	    }
+	50% {
+	    opacity:1;
+        transform:translate(0px, 0px);
+	    animation-timing-function: ease-out;
+	}
+    100% {
+        opacity:0.6;
+	    transform:translate(0px, -10px);
+    }
+}
+@-webkit-keyframes animate{                           /*webkit - keyframe*/
+	0% {
+	    opacity:0.6;
+		-webkit-transform:translate(0px, -10px);
+		-webkit-animation-timing-function: ease-in;
+	    }
+	50% {
+	    opacity:1;
+        -webkit-transform:translate(0px, 0px);
+	    -webkit-animation-timing-function: ease-out;
+	}
+    100% {
+        opacity:0.6;
+	    -webkit-transform:translate(0px, -10px);
+    }
+}
+@keyframes animate2{
+	0% {
+	    opacity:0.5;
+        transform:translate(0px, -10px);
+	    animation-timing-function: ease-out;
+	}
+    100% {
+        opacity:1;
+        transform:translate(0px, 0px);
+    }
+}
+@-webkit-keyframes animate2{
+	0% {
+		  opacity:0.5;
+          -webkit-transform:translate(0px,-10px);
+	      -webkit-animation-timing-function: ease-out;
+	    }
+    100% {
+        opacity:1;
+        -webkit-transform:translate(0px, 0px);
+    }
+}
